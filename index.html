@@ -187,6 +187,15 @@ button{font-family:inherit}
 .section-label{scroll-margin-top:96px;font:500 12.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:26px 0 0}
 .essentiel{background:var(--accent-soft);color:var(--accent-soft-ink);border-radius:22px;padding:20px 24px}
 .essentiel ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:16.5px}
+.synths{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.synth{background:var(--card);color:var(--card-ink);border:1px solid var(--line);border-radius:22px;padding:20px 22px;display:grid;gap:8px;align-content:start;text-decoration:none;transition:border-color .15s,transform .15s}
+.synth:hover{border-color:var(--ink);transform:translateY(-2px)}.synth[hidden]{display:none!important}
+.synth .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.synth b{font:600 19px/1.25 var(--display)}.synth p{margin:0;color:var(--card-muted);font-size:15.5px;line-height:1.5}
+.synth .go{font:600 14px var(--display);color:var(--link);margin-top:4px}
+.synth.first{background:var(--accent-soft);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.synth{transition:none}.synth:hover{transform:none}}
+.synth-body{font-size:18px;line-height:1.6;color:var(--ink);margin:6px 0 4px}
 .trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .trend{background:var(--trend);color:var(--trend-ink);border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:grid;gap:6px;align-content:start}
 .trend b{font:600 17.5px/1.2 var(--display)}
@@ -221,8 +230,8 @@ button{font-family:inherit}
 .notes{font:400 13px var(--mono);color:var(--muted);border-top:1px dashed var(--line);padding-top:14px;margin-top:16px}
 
 /* Share bar + side */
-.sharebar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:6px;width:max-content;max-width:100%}
-.sharebar a,.sharebar button{background:var(--bg-3);color:var(--ink);border:0;border-radius:999px;padding:8px 14px;font:600 13.5px var(--display);cursor:pointer;text-decoration:none}
+.sharebar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0}
+.sharebar a,.sharebar button{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:600 14px var(--display);cursor:pointer;text-decoration:none;line-height:1.2}.sharebar a:hover,.sharebar button:hover{background:var(--bg-2);border-color:var(--ink)}
 .side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);margin-top:44px;display:grid;gap:14px}
 .toc{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:2px}
 .toc a{display:flex;justify-content:space-between;gap:8px;border-radius:10px;padding:7px 8px;color:var(--ink);font:500 14.5px var(--display);text-decoration:none}
@@ -334,7 +343,7 @@ const T={
 fr:{menu:"Menu",search:"Outil, auteur, sujet…",home:"Accueil",archives:"Archives",about:"À propos",tools:"Outils & ressources",people:"Personnes à suivre",events:"Événements",saved:"Mes favoris",rss:"Flux RSS",language:"Langue",theme:"Thème",light:"Clair",dark:"Sombre",system:"Auto",
  heroA:"Ta veille",heroB:"design × IA",heroP:"Chaque soir, le meilleur de LinkedIn, Substack et X sur le design agentique, l'IA en product design et les design systems augmentés.",
  latest:"Dernière édition",priority:"À lire en priorité",allEd:"Éditions précédentes",seeArchives:"Toutes les archives",read:"Lire l'édition",min:"min",minRead:"min de lecture",posts:"posts",tools_n:"ressources",
- essentials:"L'essentiel",trends:"Tendances",toRead:"Posts à lire",toolsS:"Outils & ressources",peopleS:"Personnes à suivre",eventsS:"Événements",offers:"Offres ciblées",inEd:"Dans cette édition",
+ essentials:"L'essentiel",trends:"Tendances",synthT:"Les synthèses du soir",synthS:"Synthèses",synthK:"Synthèse",synthN:n=>n>1?n+" posts liés":n+" post lié",synthGo:"Voir les posts →",more:"Voir plus",synthPosts:"Les posts qui en parlent",synthOthers:"Les autres synthèses de ce soir",fullEd:"Lire l'édition complète",noSynthPosts:"Synthèse tirée de l'ensemble de l'édition.",toRead:"Posts à lire",toolsS:"Outils & ressources",peopleS:"Personnes à suivre",eventsS:"Événements",offers:"Offres ciblées",inEd:"Dans cette édition",
  forYou:"Pour toi",comments:"Dans les commentaires :",viewPost:"Voir le post ↗",open:"Ouvrir ↗",profile:"Profil ↗",info:"Infos ↗",keep:"☆ Garder",kept:"★ Gardé",
  back:"← Accueil",prev:"← Édition précédente",next:"Édition suivante →",related:"Sur les mêmes sujets",copyLink:"Copier le lien",shareLi:"Partager sur LinkedIn",copied:"Lien copié",notes:"Notes de collecte :",preview:"aperçu",sigK:"Écrit par",sigTxt:"Product Designer à Abidjan. Je trie chaque soir ce qui compte en design agentique, IA et design systems.",sigCta:"Me suivre sur LinkedIn ↗",
  resource:"Ressource",event:"Événement",cited:"Cité",times:"×",spotted:"Repéré",
@@ -352,7 +361,7 @@ fr:{menu:"Menu",search:"Outil, auteur, sujet…",home:"Accueil",archives:"Archiv
 en:{menu:"Menu",search:"Tool, author, topic…",home:"Home",archives:"Archive",about:"About",tools:"Tools & resources",people:"People to follow",events:"Events",saved:"Saved",rss:"RSS feed",language:"Language",theme:"Theme",light:"Light",dark:"Dark",system:"Auto",
  heroA:"Your daily",heroB:"design × AI",heroP:"Every evening, the best of LinkedIn, Substack and X on agentic design, AI in product design and AI-augmented design systems.",
  latest:"Latest edition",priority:"Read first",allEd:"Previous editions",seeArchives:"Full archive",read:"Read the edition",min:"min",minRead:"min read",posts:"posts",tools_n:"resources",
- essentials:"Key takeaways",trends:"Trends",toRead:"Posts to read",toolsS:"Tools & resources",peopleS:"People to follow",eventsS:"Events",offers:"Relevant jobs",inEd:"In this edition",
+ essentials:"Key takeaways",trends:"Trends",synthT:"Tonight's syntheses",synthS:"Syntheses",synthK:"Synthesis",synthN:n=>n>1?n+" linked posts":n+" linked post",synthGo:"See the posts →",more:"See more",synthPosts:"The posts behind it",synthOthers:"Tonight's other syntheses",fullEd:"Read the full edition",noSynthPosts:"Synthesis drawn from the whole edition.",toRead:"Posts to read",toolsS:"Tools & resources",peopleS:"People to follow",eventsS:"Events",offers:"Relevant jobs",inEd:"In this edition",
  forYou:"For you",comments:"In the comments:",viewPost:"View post ↗",open:"Open ↗",profile:"Profile ↗",info:"Details ↗",keep:"☆ Save",kept:"★ Saved",
  back:"← Home",prev:"← Previous edition",next:"Next edition →",related:"On the same topics",copyLink:"Copy link",shareLi:"Share on LinkedIn",copied:"Link copied",notes:"Collection notes:",preview:"preview",sigK:"Written by",sigTxt:"Product Designer in Abidjan. Every evening I sort out what matters in agentic design, AI and design systems.",sigCta:"Follow me on LinkedIn ↗",
  resource:"Resource",event:"Event",cited:"Cited",times:"×",spotted:"Spotted",
@@ -464,11 +473,22 @@ function startStage(){stopStage();const st=document.getElementById("stage");if(!
   cycle();
 }
 /* ---------- views ---------- */
+function synthsOf(e){const xs=arr(e.syntheses).length?arr(e.syntheses):arr(e.tendances).map((x,i)=>({id:"t"+(i+1),titre:x.titre,texte:x.texte,posts:[]}));return xs.map((x,i)=>({...x,id:x.id||"s"+(i+1)}))}
+function synthCard(e,x,i,hide){const n=arr(x.posts).length;return `<a class="synth${i===0?" first":""}" href="#s-${e.date}-${encodeURIComponent(x.id)}"${hide?" hidden":""}><span class="k">${esc(t("synthK"))} ${String(i+1).padStart(2,"0")}${n?" · "+esc(t("synthN")(n)):""}</span><b>${esc(x.titre)}</b><p>${esc(x.texte)}</p><span class="go">${esc(t("synthGo"))}</span></a>`}
+async function viewSynth(date,id){const e=await getEd(date,lang);if(!e)return empty("",t("notFound"));const xs=synthsOf({...e,date});const x=xs.find(y=>String(y.id)===id);if(!x)return empty("",t("notFound"));
+  const ps=arr(e.posts).map((p,j)=>({p,key:date+"#"+(p.id||j)})).filter(o=>arr(x.posts).includes(o.p.id));const others=xs.filter(y=>y!==x);
+  return `<div class="narrow reader"><div class="crumbs"><a class="back" href="#">${esc(t("back"))}</a><a class="back" href="#e-${date}">${esc(short(date))}</a></div>
+   <span class="when">${esc(t("synthK"))} · ${esc(fmt(date))}</span><h1><mark>${esc(x.titre)}</mark></h1><p class="synth-body">${esc(x.texte)}</p>
+   <div class="section-label">${esc(t("synthPosts"))}${ps.length?" · "+ps.length:""}</div>
+   ${ps.length?ps.map(o=>postHTML(o.p,o.key)).join(""):`<p class="notes">${esc(t("noSynthPosts"))}</p>`}
+   ${others.length?`<div class="section-label">${esc(t("synthOthers"))}</div><div class="synths">${others.map(y=>synthCard({...e,date},y,xs.indexOf(y),false)).join("")}</div>`:""}
+   <div class="more"><a class="ghost-btn" href="#e-${date}">${esc(t("fullEd"))}</a></div></div>`}
 async function viewHome(){const eds=await allEds();const L=eds[0];
   let h=`<section class="hero">${hl([t("heroA")])}<div class="hl"><span>${esc(t("heroB"))}</span><i class="spark" aria-hidden="true"></i></div><p>${esc(t("heroP"))}</p>
   ${stageHTML()}</section>`;
   if(!L)return h+empty(t("noEdP"),t("noEd"));
   const tt=topTags(eds);if(tt.length)h+=`<div class="topics">${tt.map(([x,n])=>`<a class="topic" href="#tag-${encodeURIComponent(x)}">${esc(x)}<small>${n}</small></a>`).join("")}</div>`;
+  const sy=synthsOf(L);if(sy.length)h+=`<div class="eyebrow">${esc(t("synthT"))}</div><div class="synths" id="synths">${sy.map((x,i)=>synthCard(L,x,i,i>=2)).join("")}</div>${sy.length>2?`<div class="more"><button class="ghost-btn" id="moreSynth">${esc(t("more"))}</button></div>`:""}`;
   const pr=postsOf([L]).slice(0,5);
   h+=`<div class="eyebrow">${esc(t("latest"))}</div><div class="lead">
     <div class="feature"><span class="badge">${esc(fmt(L.date))}${L.apercu?" · "+esc(t("preview")):""}</span><h2>${esc(L.titre)}</h2>
@@ -480,7 +500,7 @@ async function viewHome(){const eds=await allEds();const L=eds[0];
 
 async function viewEdition(date){const e=await getEd(date,lang);if(!e)return empty("",t("notFound"));
   const eds=await allEds();const posts=arr(e.posts);
-  const secs=[["essentiel",t("essentials"),arr(e.essentiel).length],["tendances",t("trends"),arr(e.tendances).length],["posts",t("toRead"),posts.length],["outils",t("toolsS"),arr(e.outils).length],["personnes",t("peopleS"),arr(e.personnes).length],["evenements",t("eventsS"),arr(e.evenements).length],["offres",t("offers"),arr(e.offres).length]].filter(s=>s[2]);
+  const secs=[["essentiel",t("essentials"),arr(e.essentiel).length],(arr(e.syntheses).length?["syntheses",t("synthS"),arr(e.syntheses).length]:["tendances",t("trends"),arr(e.tendances).length]),["posts",t("toRead"),posts.length],["outils",t("toolsS"),arr(e.outils).length],["personnes",t("peopleS"),arr(e.personnes).length],["evenements",t("eventsS"),arr(e.evenements).length],["offres",t("offers"),arr(e.offres).length]].filter(s=>s[2]);
   const lab=id=>{const s=secs.find(x=>x[0]===id);return `<div class="section-label" id="s-${id}">${esc(s[1])}${id==="posts"?" · "+posts.length:""}</div>`};
   const i=index.indexOf(date),newer=index[i-1],older=index[i+1];
   const myTags=new Set(posts.flatMap(p=>arr(p.tags)));
@@ -494,7 +514,8 @@ async function viewEdition(date){const e=await getEd(date,lang);if(!e)return emp
     <div class="reading"><span>${readMin(e)} ${esc(t("minRead"))}</span><span>${posts.length} ${esc(t("posts"))}</span>${arr(e.outils).length?`<span>${arr(e.outils).length} ${esc(t("tools_n"))}</span>`:""}</div>
     ${share}
     ${arr(e.essentiel).length?`${lab("essentiel")}<div class="essentiel"><ul>${arr(e.essentiel).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}
-    ${arr(e.tendances).length?`${lab("tendances")}<div class="trends">${arr(e.tendances).map(x=>`<div class="trend"><b>${esc(x.titre)}</b><p>${esc(x.texte)}</p></div>`).join("")}</div>`:""}
+    ${arr(e.syntheses).length?`${lab("syntheses")}<div class="synths">${synthsOf({...e,date}).map((x,i)=>synthCard({...e,date},x,i,false)).join("")}</div>`:""}
+    ${!arr(e.syntheses).length&&arr(e.tendances).length?`${lab("tendances")}<div class="trends">${arr(e.tendances).map(x=>`<div class="trend"><b>${esc(x.titre)}</b><p>${esc(x.texte)}</p></div>`).join("")}</div>`:""}
     ${posts.length?`${lab("posts")}${posts.map((p,j)=>postHTML(p,date+"#"+(p.id||j))).join("")}`:""}
     ${arr(e.outils).length?`${lab("outils")}<div class="tiles">${arr(e.outils).map(toolHTML).join("")}</div>`:""}
     ${arr(e.personnes).length?`${lab("personnes")}<div class="tiles">${arr(e.personnes).map(personHTML).join("")}</div>`:""}
@@ -520,6 +541,14 @@ async function viewArchives(page=1){const all=await allEds();if(!all.length)retu
     Object.keys(groups).sort().reverse().map(ym=>`<div class="month">${esc(monthLabel(ym))}</div>`+groups[ym].map(e=>{const tags=[...new Set(postsOf([e]).flatMap(p=>arr(p.tags)))].slice(0,4);
       return `<a class="arow" href="#e-${e.date}"><span class="d">${esc(short(e.date))}</span><span><h3 class="t">${esc(e.titre)}</h3><p>${esc(arr(e.essentiel)[e.apercu?1:0]||"")}</p><span class="tags">${tags.map(x=>`<span>${esc(x)}</span>`).join("")}<span>${arr(e.posts).length} ${esc(t("posts"))}</span></span></span></a>`}).join("")).join("")+`</div>`+pagerHTML(page,pages,"archives")}
 
+function viewAbout(){const tx=t("aboutText");
+  return pageHead(t("aboutA"),t("aboutB"),t("aboutP"))+`<div class="about">
+  <div class="about-card"><img class="avatar" src="assets/avatar.jpg" alt="${esc(lang==='fr'?'Avatar de Nicky':'Avatar of Nicky')}" width="96" height="96"><div><h2>${esc(t("aboutName"))}</h2><p class="role">${esc(t("aboutRole"))}</p>${tx.map(p=>`<p>${esc(p)}</p>`).join("")}
+  <div class="links"><a href="https://www.linkedin.com/in/isma%C3%ABl-yannick-92b9111a3/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://ismaelyannickflow.netlify.app/" target="_blank" rel="noopener">Portfolio ↗</a></div></div></div>
+  <h3>${esc(t("methodT"))}</h3>
+  <div class="method">${[1,2,3].map(n=>`<div><b>${esc(t("m"+n+"t"))}</b><p>${esc(t("m"+n+"p"))}</p></div>`).join("")}</div></div>`}
+
+
 async function viewTop(){const eds=await allEds();if(!eds.length)return pageHead(t("topA"),t("topB"),t("topP"))+empty(t("noEdP"),t("noEd"));
   const tags=new Map();postsOf(eds).forEach(p=>arr(p.tags).forEach(x=>tags.set(x,(tags.get(x)||0)+1)));
   const lists=[[t("topTools"),collect(eds,"outils").map(x=>({n:x.nom,c:x._dates.length,u:x.url}))],[t("topPeople"),collect(eds,"personnes").map(x=>({n:x.nom,c:x._dates.length,u:x.url}))],[t("topTags"),[...tags].map(([n,c])=>({n,c,h:"#tag-"+encodeURIComponent(n)}))]];
@@ -541,6 +570,7 @@ async function viewSearch(tag){const eds=await allEds();const hits=postsOf(eds).
 /* ---------- chrome ---------- */
 let query="";
 function route(){const h=decodeURIComponent(location.hash.slice(1));
+  const sm=h.match(/^s-(\d{4}-\d{2}-\d{2})-(.+)$/);if(sm)return{v:"synth",d:sm[1],id:sm[2]};
   if(h.startsWith("e-"))return{v:"edition",d:h.slice(2)};if(h.startsWith("tag-"))return{v:"tag",tag:h.slice(4)};
   const ap=h.match(/^archives\/(\d+)$/);if(ap)return{v:"archives",page:+ap[1]};
   if(["archives","about","outils","personnes","evenements","favoris","top"].includes(h))return{v:h};return{v:"home"}}
@@ -577,6 +607,7 @@ async function render(){
   const r=route();
   if(query&&r.v!=="tag")m.innerHTML=await viewSearch(null);
   else if(r.v==="edition")m.innerHTML=await viewEdition(r.d);
+  else if(r.v==="synth")m.innerHTML=await viewSynth(r.d,r.id);
   else if(r.v==="tag")m.innerHTML=await viewSearch(r.tag);
   else if(r.v==="archives")m.innerHTML=await viewArchives(r.page||1);
   else if(r.v==="top")m.innerHTML=await viewTop();
@@ -595,6 +626,7 @@ let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
 document.addEventListener("click",async e=>{
   if(!e.target.closest(".nav-inner"))closeMenu();
+  const ms=e.target.closest("#moreSynth");if(ms){const hid=[...document.querySelectorAll("#synths .synth[hidden]")];hid.slice(0,2).forEach(x=>x.hidden=false);if(hid.length<=2)ms.parentElement.remove();return}
   const el=e.target.closest("[data-jump],[data-save],[data-lang],[data-theme-set],[data-copylink],#copyMail,#toTop,#clearSearch");if(!el)return;
   if(el.dataset.jump){e.preventDefault();document.getElementById(el.dataset.jump)?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return}
   if(el.dataset.save){const k=el.dataset.save;saved=saved.includes(k)?saved.filter(x=>x!==k):[...saved,k];store.set("vdi-saved",JSON.stringify(saved));const on=saved.includes(k);el.setAttribute("aria-pressed",String(on));el.textContent=on?t("kept"):t("keep");renderMenu();return}
