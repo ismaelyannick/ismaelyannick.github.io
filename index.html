@@ -454,7 +454,11 @@ const personHTML=p=>`<div class="tile"><b>${esc(p.nom)}</b><span class="src">${e
 const eventHTML=e=>`<div class="tile k-event"><span class="kind">${esc(t("event"))}</span><b>${esc(e.nom)}</b><span class="src">${esc(e.date)}${e.lieu?" · "+esc(e.lieu):""}</span><p>${esc(e.note)}</p>${link(e.url,t("info"))}</div>`;
 function coverTitle(e){const w=String(e.titre||"").split(" ");return `<i>${esc(w.slice(0,3).join(" "))}</i> ${esc(w.slice(3,8).join(" "))}${w.length>8?"…":""}`}
 const BLOBS=["radial-gradient(40% 50% at 25% 30%,#FBC436 0,transparent 70%),radial-gradient(45% 55% at 80% 70%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 70% 20%,#F4F4F1 0,transparent 70%)","radial-gradient(45% 50% at 70% 35%,#FBC436 0,transparent 70%),radial-gradient(40% 50% at 20% 75%,#FFD25F 0,transparent 70%),radial-gradient(30% 35% at 30% 20%,#FFF4D2 0,transparent 70%)","radial-gradient(50% 45% at 50% 80%,#FBC436 0,transparent 70%),radial-gradient(35% 45% at 15% 25%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 85% 25%,#E9E2CC 0,transparent 70%)"];
-function cardHTML(e){const tag=[...new Set(postsOf([e]).flatMap(p=>arr(p.tags)))][0];let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
+let TAGDF=new Map();
+function setTagDF(eds){TAGDF=new Map();eds.forEach(e=>new Set(postsOf([e]).flatMap(p=>arr(p.tags))).forEach(x=>TAGDF.set(x,(TAGDF.get(x)||0)+1)))}
+function keyTag(e){const c=new Map();postsOf([e]).forEach(p=>arr(p.tags).forEach(x=>c.set(x,(c.get(x)||0)+1)));let best=null,bs=-1;
+  [...c].sort((a,b)=>String(a[0]).localeCompare(String(b[0]))).forEach(([x,n])=>{const sc=n/Math.log(2+(TAGDF.get(x)||1));if(sc>bs){bs=sc;best=x}});return best}
+function cardHTML(e){const tag=keyTag(e);let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
   const ex=arr(e.essentiel)[e.apercu?1:0]||"";const n=synthsOf(e).length;
   return `<a class="ecard" href="#e-${e.date}"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${esc(tag)}</span>`:""}<b>${esc(String(e.titre||"").split(/[,:]/)[0])}</b></div>
   <h3>${esc(e.titre)}</h3>${ex?`<p class="ex">${esc(ex)}</p>`:""}<span class="dt">${esc(fmt(e.date))}</span>
@@ -507,7 +511,7 @@ async function viewSynth(date,id){const e=await getEd(date,lang);if(!e)return em
    ${ps.length?ps.map(o=>postHTML(o.p,o.key)).join(""):`<p class="notes">${esc(t("noSynthPosts"))}</p>`}
    ${others.length?`<div class="section-label">${esc(t("synthOthers"))}</div><div class="synths">${others.map(y=>synthCard({...e,date},y,xs.indexOf(y),false)).join("")}</div>`:""}
    <div class="more"><a class="ghost-btn" href="#e-${date}">${esc(t("fullEd"))}</a></div></div>`}
-async function viewHome(){const eds=await allEds();const L=eds[0];
+async function viewHome(){const eds=await allEds();setTagDF(eds);const L=eds[0];
   let h=`<section class="hero">${hl([t("heroA")])}<div class="hl"><span>${esc(t("heroB"))}</span><i class="spark" aria-hidden="true"></i></div><p>${esc(t("heroP"))}</p>
   ${stageHTML()}</section>`;
   if(!L)return h+empty(t("noEdP"),t("noEd"));
