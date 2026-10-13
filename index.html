@@ -226,6 +226,7 @@ button{font-family:inherit}
 .toc a:hover{background:var(--menu-hover)}
 .toc .n{font:400 12px var(--mono);color:var(--muted)}
 @media (max-width:900px){.reader-grid{grid-template-columns:minmax(0,1fr)}.side{display:none}}
+.sig{display:flex;gap:16px;align-items:center;background:var(--accent-soft);border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-top:28px}.sig img{width:56px;height:56px;border-radius:50%;flex:none;object-fit:cover;border:2px solid var(--accent)}.sig .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.sig b{display:block;font:600 16px/1.3 var(--display);color:var(--ink);margin:2px 0}.sig p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}.sig a{color:var(--link);font-weight:500}
 .prevnext{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px}
 .prevnext a{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:16px 18px;color:var(--ink);text-decoration:none;display:grid;gap:4px}
 .prevnext .k,.rel .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -331,7 +332,7 @@ fr:{menu:"Menu",search:"Outil, auteur, sujet…",home:"Accueil",archives:"Archiv
  latest:"Dernière édition",priority:"À lire en priorité",allEd:"Éditions précédentes",seeArchives:"Toutes les archives",read:"Lire l'édition",min:"min",minRead:"min de lecture",posts:"posts",tools_n:"ressources",
  essentials:"L'essentiel",trends:"Tendances",toRead:"Posts à lire",toolsS:"Outils & ressources",peopleS:"Personnes à suivre",eventsS:"Événements",offers:"Offres ciblées",inEd:"Dans cette édition",
  forYou:"Pour toi",comments:"Dans les commentaires :",viewPost:"Voir le post ↗",open:"Ouvrir ↗",profile:"Profil ↗",info:"Infos ↗",keep:"☆ Garder",kept:"★ Gardé",
- back:"← Accueil",prev:"← Édition précédente",next:"Édition suivante →",related:"Sur les mêmes sujets",copyLink:"Copier le lien",shareLi:"Partager sur LinkedIn",copied:"Lien copié",notes:"Notes de collecte :",preview:"aperçu",
+ back:"← Accueil",prev:"← Édition précédente",next:"Édition suivante →",related:"Sur les mêmes sujets",copyLink:"Copier le lien",shareLi:"Partager sur LinkedIn",copied:"Lien copié",notes:"Notes de collecte :",preview:"aperçu",sigK:"Écrit par",sigTxt:"Product Designer à Abidjan. Je trie chaque soir ce qui compte en design agentique, IA et design systems.",sigCta:"Me suivre sur LinkedIn ↗",
  resource:"Ressource",event:"Événement",cited:"Cité",times:"×",spotted:"Repéré",
  archTitleA:"Archives",archTitleB:"de la veille",archP:"Toutes les éditions, de la plus récente à la plus ancienne.",editions:"éditions",edition:"édition",
  toolsA:"Outils",toolsB:"& ressources",toolsP:"Tout ce qui a été repéré, classé par nombre de citations.",peopleA:"Personnes",peopleB:"à suivre",peopleP:"Les auteurs qui publient du contenu de qualité sur ces sujets.",eventsA:"Événements",eventsB:"à venir",eventsP:"Meetups, webinars et conférences repérés.",savedA:"Mes",savedB:"favoris",savedP:"Les posts que tu as gardés, enregistrés dans ce navigateur.",
@@ -349,7 +350,7 @@ en:{menu:"Menu",search:"Tool, author, topic…",home:"Home",archives:"Archive",a
  latest:"Latest edition",priority:"Read first",allEd:"Previous editions",seeArchives:"Full archive",read:"Read the edition",min:"min",minRead:"min read",posts:"posts",tools_n:"resources",
  essentials:"Key takeaways",trends:"Trends",toRead:"Posts to read",toolsS:"Tools & resources",peopleS:"People to follow",eventsS:"Events",offers:"Relevant jobs",inEd:"In this edition",
  forYou:"For you",comments:"In the comments:",viewPost:"View post ↗",open:"Open ↗",profile:"Profile ↗",info:"Details ↗",keep:"☆ Save",kept:"★ Saved",
- back:"← Home",prev:"← Previous edition",next:"Next edition →",related:"On the same topics",copyLink:"Copy link",shareLi:"Share on LinkedIn",copied:"Link copied",notes:"Collection notes:",preview:"preview",
+ back:"← Home",prev:"← Previous edition",next:"Next edition →",related:"On the same topics",copyLink:"Copy link",shareLi:"Share on LinkedIn",copied:"Link copied",notes:"Collection notes:",preview:"preview",sigK:"Written by",sigTxt:"Product Designer in Abidjan. Every evening I sort out what matters in agentic design, AI and design systems.",sigCta:"Follow me on LinkedIn ↗",
  resource:"Resource",event:"Event",cited:"Cited",times:"×",spotted:"Spotted",
  archTitleA:"Archive",archTitleB:"of the digest",archP:"Every edition, newest first.",editions:"editions",edition:"edition",
  toolsA:"Tools",toolsB:"& resources",toolsP:"Everything spotted so far, ranked by number of mentions.",peopleA:"People",peopleB:"to follow",peopleP:"Authors who regularly publish quality content on these topics.",eventsA:"Upcoming",eventsB:"events",eventsP:"Meetups, webinars and conferences spotted.",savedA:"Your",savedB:"saved posts",savedP:"Posts you saved, stored in this browser.",
@@ -497,6 +498,7 @@ async function viewEdition(date){const e=await getEd(date,lang);if(!e)return emp
     ${arr(e.offres).length?`${lab("offres")}<div class="tiles">${arr(e.offres).map(o=>`<div class="tile"><b>${esc(o.poste)}</b><p>${esc(o.entreprise)} · ${esc(o.lieu)}</p>${link(o.url,t("open"))}</div>`).join("")}</div>`:""}
     ${e.notes?`<p class="notes">${esc(t("notes"))} ${esc(e.notes)}</p>`:""}
     ${share}
+    <div class="sig"><img src="assets/avatar.jpg" alt="" width="56" height="56"><div><span class="k">${esc(t("sigK"))}</span><b>${esc(t("aboutName"))}</b><p>${esc(t("sigTxt"))} <a href="https://www.linkedin.com/in/isma%C3%ABl-yannick-92b9111a3/" target="_blank" rel="noopener">${esc(t("sigCta"))}</a></p></div></div>
     ${rel.length?`<div class="section-label">${esc(t("related"))}</div><div class="rel">${rel.map(p=>`<a href="#e-${p._date}"><span class="k">${esc(short(p._date))} · ${esc(p.auteur)}</span><span class="t">${esc(String(p.idee||"").split(/(?<=[.:])\s/)[0])}</span></a>`).join("")}</div>`:""}
     ${nw||od?`<div class="prevnext">${od?`<a href="#e-${od.date}"><span class="k">${esc(t("prev"))} · ${esc(short(od.date))}</span><span class="t">${esc(od.titre)}</span></a>`:""}${nw?`<a href="#e-${nw.date}"><span class="k">${esc(t("next"))} · ${esc(short(nw.date))}</span><span class="t">${esc(nw.titre)}</span></a>`:""}</div>`:""}
   </div>
