@@ -142,6 +142,8 @@ button{font-family:inherit}
 .topics{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px auto 0;max-width:820px}
 .topic{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 11px;font:500 14px var(--display);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
 .ti{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cover-hero{margin:6px 0 18px}.ecard.cover-hero .pc{aspect-ratio:21/9;border-radius:22px}.ecard.cover-hero .pc b{font-size:clamp(24px,4.2vw,40px)}.cover-hero .pill{top:16px;left:16px}
+@media (max-width:640px){.ecard.cover-hero .pc{aspect-ratio:16/10}}
 .ecard .pill{display:inline-flex;align-items:center;gap:5px}.ecard .pill .ti{width:12px;height:12px}
 .topic:hover{background:var(--pill);color:var(--pill-ink);border-color:var(--pill)}
 .topic small{font:400 12px var(--mono);opacity:.65;margin-left:4px}
@@ -523,6 +525,8 @@ let TAGDF=new Map();
 function setTagDF(eds){TAGDF=new Map();eds.forEach(e=>new Set(postsOf([e]).flatMap(p=>arr(p.tags))).forEach(x=>TAGDF.set(x,(TAGDF.get(x)||0)+1)))}
 function keyTag(e){const c=new Map();postsOf([e]).forEach(p=>arr(p.tags).forEach(x=>c.set(x,(c.get(x)||0)+1)));let best=null,bs=-1;
   [...c].sort((a,b)=>String(a[0]).localeCompare(String(b[0]))).forEach(([x,n])=>{const sc=n/Math.log(2+(TAGDF.get(x)||1));if(sc>bs){bs=sc;best=x}});return best}
+function coverHTML(seed,title,tag){let h=0;for(const c of String(seed))h=(h*31+c.charCodeAt(0))>>>0;
+  return `<div class="ecard cover-hero" aria-hidden="true"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${tagIcon(tag)}${esc(tag)}</span>`:""}<b>${esc(String(title||"").split(/[,:]/)[0])}</b></div></div>`}
 function cardHTML(e){const tag=keyTag(e);let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
   const ex=arr(e.essentiel)[e.apercu?1:0]||"";
   return `<a class="ecard" href="#e-${e.date}"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${tagIcon(tag)}${esc(tag)}</span>`:""}<b>${esc(String(e.titre||"").split(/[,:]/)[0])}</b></div>
@@ -571,6 +575,7 @@ function synthCard(e,x,i,hide){const n=arr(x.posts).length;return `<a class="syn
 async function viewSynth(date,id){const e=await getEd(date,lang);if(!e)return empty("",t("notFound"));const xs=synthsOf({...e,date});const x=xs.find(y=>String(y.id)===id);if(!x)return empty("",t("notFound"));
   const ps=arr(e.posts).map((p,j)=>({p,key:date+"#"+(p.id||j)})).filter(o=>arr(x.posts).includes(o.p.id));const others=xs.filter(y=>y!==x);
   return `<div class="narrow reader"><div class="crumbs"><a class="back" href="#">${esc(t("back"))}</a><a class="back" href="#e-${date}">${esc(short(date))}</a></div>
+   ${coverHTML(date+x.id,x.titre,(()=>{const c=new Map();ps.forEach(o=>arr(o.p.tags).forEach(g=>c.set(g,(c.get(g)||0)+1)));return [...c].sort((a,b)=>b[1]-a[1])[0]?.[0]})())}
    <span class="when">${esc(t("synthK"))} · ${esc(fmt(date))}</span><h1><mark>${esc(x.titre)}</mark></h1><p class="synth-body">${esc(x.texte)}</p>
    <div class="section-label">${esc(t("synthPosts"))}${ps.length?" · "+ps.length:""}</div>
    ${ps.length?ps.map(o=>postHTML(o.p,o.key)).join(""):`<p class="notes">${esc(t("noSynthPosts"))}</p>`}
@@ -602,6 +607,7 @@ async function viewEdition(date){const e=await getEd(date,lang);if(!e)return emp
   const share=`<div class="sharebar"><button data-copylink="${date}">${esc(t("copyLink"))}</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(edUrl(date))}" target="_blank" rel="noopener">${esc(t("shareLi"))}</a></div>`;
   return `<div class="reader-grid"><div class="reader">
     <div class="crumbs"><a class="back" href="#">${esc(t("back"))}</a><a class="back" href="#archives">${esc(t("archives"))}</a></div>
+    ${(setTagDF(eds),coverHTML(date,e.titre,keyTag({...e,date})))}
     <span class="when">${esc(fmt(date))}${e.apercu?" · "+esc(t("preview")):""}</span>
     <h1><mark>${esc(e.titre)}</mark></h1>
     <div class="reading"><span>${readMin(e)} ${esc(t("minRead"))}</span><span>${posts.length} ${esc(t("posts"))}</span>${arr(e.outils).length?`<span>${arr(e.outils).length} ${esc(t("tools_n"))}</span>`:""}</div>
