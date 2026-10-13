@@ -135,6 +135,9 @@ button{font-family:inherit}
 @keyframes pulse{50%{opacity:.3}}
 @media (prefers-reduced-motion:reduce){.spark,.log .dot{animation:none}.blk{transition:none}.cursor{display:none}}
 .eyebrow{font:500 13px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);text-align:center;margin:52px 0 16px}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;pointer-events:none}.progress i{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.ranks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}.rank{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:18px 18px 10px}.rank h3{font:600 15px var(--display);margin:0 0 10px}.rank ol{list-style:none;margin:0;padding:0}.rank li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.rank li:first-child{border-top:0}.rank .i{font:500 12px var(--mono);color:var(--muted)}.rank .nm{min-width:0}.rank .nm a,.rank .nm span{color:var(--ink);text-decoration:none;font-weight:500;overflow-wrap:anywhere}.rank .bar{display:block;height:4px;border-radius:4px;background:var(--accent);margin-top:5px}.rank .c{font:500 12px var(--mono);background:var(--pill);color:var(--pill-ink);border-radius:999px;padding:2px 8px}
+.pager{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:28px 0 8px}.pager a,.pager span{min-width:36px;height:36px;display:inline-grid;place-items:center;padding:0 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font:500 13px var(--mono)}.pager [aria-current]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .topics{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px auto 0;max-width:820px}
 .topic{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:500 14px var(--display);cursor:pointer;text-decoration:none}
 .topic:hover{background:var(--pill);color:var(--pill-ink);border-color:var(--pill)}
@@ -312,6 +315,7 @@ button{font-family:inherit}
       <nav class="menu-panel" id="menu" hidden></nav>
     </div>
   </div>
+  <div class="progress" id="progress" hidden aria-hidden="true"><i></i></div>
   <main id="main"></main>
   <footer class="foot" id="foot"></footer>
 </div>
@@ -334,7 +338,7 @@ fr:{menu:"Menu",search:"Outil, auteur, sujet…",home:"Accueil",archives:"Archiv
  forYou:"Pour toi",comments:"Dans les commentaires :",viewPost:"Voir le post ↗",open:"Ouvrir ↗",profile:"Profil ↗",info:"Infos ↗",keep:"☆ Garder",kept:"★ Gardé",
  back:"← Accueil",prev:"← Édition précédente",next:"Édition suivante →",related:"Sur les mêmes sujets",copyLink:"Copier le lien",shareLi:"Partager sur LinkedIn",copied:"Lien copié",notes:"Notes de collecte :",preview:"aperçu",sigK:"Écrit par",sigTxt:"Product Designer à Abidjan. Je trie chaque soir ce qui compte en design agentique, IA et design systems.",sigCta:"Me suivre sur LinkedIn ↗",
  resource:"Ressource",event:"Événement",cited:"Cité",times:"×",spotted:"Repéré",
- archTitleA:"Archives",archTitleB:"de la veille",archP:"Toutes les éditions, de la plus récente à la plus ancienne.",editions:"éditions",edition:"édition",
+ archTitleA:"Archives",archTitleB:"de la veille",topA:"Les plus",topB:"cités",topP:"Ce qui revient le plus souvent d'une édition à l'autre, calculé automatiquement.",topTools:"Outils",topPeople:"Personnes",topTags:"Sujets",topNav:"Les plus cités",cites:n=>n>1?n+" citations":n+" citation",pageL:"Page",prevP:"← Plus récentes",nextP:"Plus anciennes →",archP:"Toutes les éditions, de la plus récente à la plus ancienne.",editions:"éditions",edition:"édition",
  toolsA:"Outils",toolsB:"& ressources",toolsP:"Tout ce qui a été repéré, classé par nombre de citations.",peopleA:"Personnes",peopleB:"à suivre",peopleP:"Les auteurs qui publient du contenu de qualité sur ces sujets.",eventsA:"Événements",eventsB:"à venir",eventsP:"Meetups, webinars et conférences repérés.",savedA:"Mes",savedB:"favoris",savedP:"Les posts que tu as gardés, enregistrés dans ce navigateur.",
  searchA:"Recherche",found:n=>`${n} post${n>1?"s":""}`,inAll:"dans toutes les éditions",clear:"Effacer la recherche",nothing:"Rien trouvé.",tryOther:"Essaie un outil (Figma, Claude), un auteur ou un sujet.",
  emptyT:"Rien pour l'instant.",emptyTools:"Aucun outil repéré pour l'instant.",emptyPeople:"Les auteurs qui reviennent souvent apparaîtront ici.",emptyEvents:"Aucun événement repéré pour l'instant.",emptySaved:"Clique sur « ☆ Garder » sous un post pour le retrouver ici.",
@@ -352,7 +356,7 @@ en:{menu:"Menu",search:"Tool, author, topic…",home:"Home",archives:"Archive",a
  forYou:"For you",comments:"In the comments:",viewPost:"View post ↗",open:"Open ↗",profile:"Profile ↗",info:"Details ↗",keep:"☆ Save",kept:"★ Saved",
  back:"← Home",prev:"← Previous edition",next:"Next edition →",related:"On the same topics",copyLink:"Copy link",shareLi:"Share on LinkedIn",copied:"Link copied",notes:"Collection notes:",preview:"preview",sigK:"Written by",sigTxt:"Product Designer in Abidjan. Every evening I sort out what matters in agentic design, AI and design systems.",sigCta:"Follow me on LinkedIn ↗",
  resource:"Resource",event:"Event",cited:"Cited",times:"×",spotted:"Spotted",
- archTitleA:"Archive",archTitleB:"of the digest",archP:"Every edition, newest first.",editions:"editions",edition:"edition",
+ archTitleA:"Archive",archTitleB:"of the digest",topA:"Most",topB:"cited",topP:"What keeps coming back from one edition to the next, computed automatically.",topTools:"Tools",topPeople:"People",topTags:"Topics",topNav:"Most cited",cites:n=>n>1?n+" mentions":n+" mention",pageL:"Page",prevP:"← Newer",nextP:"Older →",archP:"Every edition, newest first.",editions:"editions",edition:"edition",
  toolsA:"Tools",toolsB:"& resources",toolsP:"Everything spotted so far, ranked by number of mentions.",peopleA:"People",peopleB:"to follow",peopleP:"Authors who regularly publish quality content on these topics.",eventsA:"Upcoming",eventsB:"events",eventsP:"Meetups, webinars and conferences spotted.",savedA:"Your",savedB:"saved posts",savedP:"Posts you saved, stored in this browser.",
  searchA:"Search",found:n=>`${n} post${n>1?"s":""}`,inAll:"across all editions",clear:"Clear search",nothing:"Nothing found.",tryOther:"Try a tool (Figma, Claude), an author or a topic.",
  emptyT:"Nothing yet.",emptyTools:"No tools spotted yet.",emptyPeople:"Authors who come up often will appear here.",emptyEvents:"No events spotted yet.",emptySaved:"Click “☆ Save” under a post to find it here.",
@@ -504,18 +508,24 @@ async function viewEdition(date){const e=await getEd(date,lang);if(!e)return emp
   </div>
   <aside class="side"><nav class="toc" aria-label="${esc(t("inEd"))}"><h4>${esc(t("inEd"))}</h4>${secs.map(s=>`<a href="#e-${date}" data-jump="s-${s[0]}">${esc(s[1])}<span class="n">${s[2]}</span></a>`).join("")}</nav></aside></div>`}
 
-async function viewArchives(){const eds=await allEds();if(!eds.length)return pageHead(t("archTitleA"),t("archTitleB"),t("archP"))+empty(t("noEdP"),t("noEd"));
+const PER_PAGE=30;
+function pagerHTML(page,pages,base){if(pages<2)return"";const L=n=>`#${base}${n>1?"/"+n:""}`;let h=`<nav class="pager" aria-label="${esc(t("pageL"))}">`;
+  if(page>1)h+=`<a href="${L(page-1)}">${esc(t("prevP"))}</a>`;
+  for(let i=1;i<=pages;i++){if(i===1||i===pages||Math.abs(i-page)<=1)h+=i===page?`<span aria-current="page">${i}</span>`:`<a href="${L(i)}">${i}</a>`;else if(Math.abs(i-page)===2)h+=`<span aria-hidden="true">…</span>`}
+  if(page<pages)h+=`<a href="${L(page+1)}">${esc(t("nextP"))}</a>`;return h+`</nav>`}
+async function viewArchives(page=1){const all=await allEds();if(!all.length)return pageHead(t("archTitleA"),t("archTitleB"),t("archP"))+empty(t("noEdP"),t("noEd"));
+  const pages=Math.max(1,Math.ceil(all.length/PER_PAGE));page=Math.min(Math.max(1,page|0),pages);const eds=all.slice((page-1)*PER_PAGE,page*PER_PAGE);
   const groups={};eds.forEach(e=>{(groups[e.date.slice(0,7)]=groups[e.date.slice(0,7)]||[]).push(e)});
-  return pageHead(t("archTitleA"),t("archTitleB"),t("archP"))+`<div class="listhead"><span class="count">${eds.length} ${esc(eds.length>1?t("editions"):t("edition"))}</span></div><div class="narrow">`+
+  return pageHead(t("archTitleA"),t("archTitleB"),t("archP"))+`<div class="listhead"><span class="count">${all.length} ${esc(all.length>1?t("editions"):t("edition"))}${pages>1?` · ${esc(t("pageL"))} ${page}/${pages}`:""}</span></div><div class="narrow">`+
     Object.keys(groups).sort().reverse().map(ym=>`<div class="month">${esc(monthLabel(ym))}</div>`+groups[ym].map(e=>{const tags=[...new Set(postsOf([e]).flatMap(p=>arr(p.tags)))].slice(0,4);
-      return `<a class="arow" href="#e-${e.date}"><span class="d">${esc(short(e.date))}</span><span><h3 class="t">${esc(e.titre)}</h3><p>${esc(arr(e.essentiel)[e.apercu?1:0]||"")}</p><span class="tags">${tags.map(x=>`<span>${esc(x)}</span>`).join("")}<span>${arr(e.posts).length} ${esc(t("posts"))}</span></span></span></a>`}).join("")).join("")+`</div>`}
+      return `<a class="arow" href="#e-${e.date}"><span class="d">${esc(short(e.date))}</span><span><h3 class="t">${esc(e.titre)}</h3><p>${esc(arr(e.essentiel)[e.apercu?1:0]||"")}</p><span class="tags">${tags.map(x=>`<span>${esc(x)}</span>`).join("")}<span>${arr(e.posts).length} ${esc(t("posts"))}</span></span></span></a>`}).join("")).join("")+`</div>`+pagerHTML(page,pages,"archives")}
 
-function viewAbout(){const tx=t("aboutText");
-  return pageHead(t("aboutA"),t("aboutB"),t("aboutP"))+`<div class="about">
-  <div class="about-card"><img class="avatar" src="assets/avatar.jpg" alt="${esc(lang==='fr'?'Avatar de Nicky':'Avatar of Nicky')}" width="96" height="96"><div><h2>${esc(t("aboutName"))}</h2><p class="role">${esc(t("aboutRole"))}</p>${tx.map(p=>`<p>${esc(p)}</p>`).join("")}
-  <div class="links"><a href="https://www.linkedin.com/in/isma%C3%ABl-yannick-92b9111a3/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://ismaelyannickflow.netlify.app/" target="_blank" rel="noopener">Portfolio ↗</a></div></div></div>
-  <h3>${esc(t("methodT"))}</h3>
-  <div class="method">${[1,2,3,4].map(n=>`<div><b>${esc(t("m"+n+"t"))}</b><p>${esc(t("m"+n+"p"))}</p></div>`).join("")}</div></div>`}
+async function viewTop(){const eds=await allEds();if(!eds.length)return pageHead(t("topA"),t("topB"),t("topP"))+empty(t("noEdP"),t("noEd"));
+  const tags=new Map();postsOf(eds).forEach(p=>arr(p.tags).forEach(x=>tags.set(x,(tags.get(x)||0)+1)));
+  const lists=[[t("topTools"),collect(eds,"outils").map(x=>({n:x.nom,c:x._dates.length,u:x.url}))],[t("topPeople"),collect(eds,"personnes").map(x=>({n:x.nom,c:x._dates.length,u:x.url}))],[t("topTags"),[...tags].map(([n,c])=>({n,c,h:"#tag-"+encodeURIComponent(n)}))]];
+  const col=([title,xs])=>{xs=xs.sort((a,b)=>b.c-a.c||String(a.n).localeCompare(String(b.n))).slice(0,10);if(!xs.length)return"";const mx=xs[0].c;
+    return `<div class="rank"><h3>${esc(title)}</h3><ol>${xs.map((x,i)=>`<li><span class="i">${String(i+1).padStart(2,"0")}</span><span class="nm">${x.h?`<a href="${x.h}">${esc(x.n)}</a>`:x.u?`<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.n)} ↗</a>`:`<span>${esc(x.n)}</span>`}<i class="bar" style="width:${Math.max(8,Math.round(x.c/mx*100))}%"></i></span><span class="c" title="${esc(t("cites")(x.c))}">${x.c}</span></li>`).join("")}</ol></div>`};
+  return pageHead(t("topA"),t("topB"),t("topP"))+`<div class="ranks">${lists.map(col).join("")}</div>`}
 
 async function viewList(kind){const eds=await allEds();const q=s=>!query||JSON.stringify(s).toLowerCase().includes(query);let body="";
   if(kind==="outils"){const xs=collect(eds,"outils").filter(q).sort((a,b)=>b._dates.length-a._dates.length);body=xs.length?`<div class="tiles">${xs.map(toolHTML).join("")}</div>`:empty(t("emptyTools"));return pageHead(t("toolsA"),t("toolsB"),t("toolsP"))+body}
@@ -532,19 +542,31 @@ async function viewSearch(tag){const eds=await allEds();const hits=postsOf(eds).
 let query="";
 function route(){const h=decodeURIComponent(location.hash.slice(1));
   if(h.startsWith("e-"))return{v:"edition",d:h.slice(2)};if(h.startsWith("tag-"))return{v:"tag",tag:h.slice(4)};
-  if(["archives","about","outils","personnes","evenements","favoris"].includes(h))return{v:h};return{v:"home"}}
-function renderMenu(){const r=route().v;const items=[["",t("home"),"home"],["archives",t("archives"),"archives"],["about",t("about"),"about"],["outils",t("tools"),"outils"],["personnes",t("people"),"personnes"],["evenements",t("events"),"evenements"],["favoris",t("saved"),"favoris"]];
+  const ap=h.match(/^archives\/(\d+)$/);if(ap)return{v:"archives",page:+ap[1]};
+  if(["archives","about","outils","personnes","evenements","favoris","top"].includes(h))return{v:h};return{v:"home"}}
+function renderMenu(){const r=route().v;const items=[["",t("home"),"home"],["archives",t("archives"),"archives"],["top",t("topNav"),"top"],["about",t("about"),"about"],["outils",t("tools"),"outils"],["personnes",t("people"),"personnes"],["evenements",t("events"),"evenements"],["favoris",t("saved"),"favoris"]];
   $("#menu").innerHTML=items.map(([h,l,k])=>`<a href="#${h}" ${r===k?'aria-current="page"':""}>${esc(l)}${k==="archives"?`<span class="n">${index.length}</span>`:k==="favoris"&&saved.length?`<span class="n">${saved.length}</span>`:""}</a>`).join("")+
   `<hr><div class="prefs"><div class="seg" role="group" aria-label="${esc(t("language"))}"><button data-lang="fr" aria-pressed="${lang==="fr"}">FR</button><button data-lang="en" aria-pressed="${lang==="en"}">EN</button></div>
    <div class="seg" role="group" aria-label="${esc(t("theme"))}"><button data-theme-set="light" aria-pressed="${theme==="light"}">${esc(t("light"))}</button><button data-theme-set="dark" aria-pressed="${theme==="dark"}">${esc(t("dark"))}</button><button data-theme-set="system" aria-pressed="${theme==="system"}">${esc(t("system"))}</button></div></div>`}
 function renderFoot(){const now=new Date(),mins=now.getUTCHours()*60+now.getUTCMinutes();
   $("#foot").innerHTML=`<div class="foot-top"><div class="foot-brand"><a class="logo" href="#" style="justify-self:start">veille.design<i>×ia</i></a><p>${esc(t("footP"))}</p></div>
     <div class="next"><i class="dot" aria-hidden="true"></i><span><small>${esc(t("nextEd"))}</small><b>${esc(mins<19*60+50?t("tonight"):t("tomorrow"))}</b></span></div></div>
-    <div class="foot-cols"><div><h5>${esc(t("browse"))}</h5><ul>${[["",t("home")],["archives",t("archives")],["about",t("about")],["outils",t("tools")],["personnes",t("people")],["evenements",t("events")],["favoris",t("saved")]].map(([h,l])=>`<li><a href="#${h}">${esc(l)}</a></li>`).join("")}</ul></div>
+    <div class="foot-cols"><div><h5>${esc(t("browse"))}</h5><ul>${[["",t("home")],["archives",t("archives")],["top",t("topNav")],["about",t("about")],["outils",t("tools")],["personnes",t("people")],["evenements",t("events")],["favoris",t("saved")]].map(([h,l])=>`<li><a href="#${h}">${esc(l)}</a></li>`).join("")}</ul></div>
     <div><h5>${esc(t("findMe"))}</h5><ul><li><a href="https://www.linkedin.com/in/isma%C3%ABl-yannick-92b9111a3/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
       <li><span class="mail"><span class="addr">ismaelyannick.iy@gmail.com</span><button class="copy" id="copyMail">${esc(t("copy"))}</button></span></li>
       <li><a href="https://ismaelyannickflow.netlify.app/" target="_blank" rel="noopener">Portfolio ↗</a></li></ul></div></div>
     <div class="foot-bottom"><span>© ${now.getUTCFullYear()} Ismaël Yannick · Abidjan</span><button class="top-btn" id="toTop">${esc(t("toTop"))}</button></div>`}
+/* ---------- barre de lecture ---------- */
+let progOn=false;
+function updProgress(){if(!progOn)return;const d=document.documentElement,max=d.scrollHeight-innerHeight;$("#progress i").style.transform=`scaleX(${max>0?Math.min(1,Math.max(0,scrollY/max)):0})`}
+function setProgress(on){progOn=on;$("#progress").hidden=!on;updProgress()}
+addEventListener("scroll",()=>requestAnimationFrame(updProgress),{passive:true});addEventListener("resize",updProgress);
+/* ---------- statistiques (GoatCounter) : désactivé tant que GOATCOUNTER est vide ---------- */
+const GOATCOUNTER=""; // ex. "nicky" pour https://nicky.goatcounter.com — à remplir après création du compte
+let goatReady=false,lastTracked="";
+function track(){if(!GOATCOUNTER)return;const path=location.pathname+(location.hash||"");if(path===lastTracked)return;lastTracked=path;
+  if(!goatReady){goatReady=true;window.goatcounter={no_onload:true};const sc=document.createElement("script");sc.async=true;sc.src="https://gc.zgo.at/count.js";sc.dataset.goatcounter=`https://${GOATCOUNTER}.goatcounter.com/count`;sc.onload=()=>window.goatcounter.count({path});document.head.appendChild(sc);return}
+  window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path})}
 async function render(){
   stopStage();
   document.documentElement.lang=lang;$("#langBtn").textContent=lang==="fr"?"EN":"FR";$("#langBtn").setAttribute("aria-label",lang==="fr"?"Switch to English":"Passer en français");
@@ -556,11 +578,12 @@ async function render(){
   if(query&&r.v!=="tag")m.innerHTML=await viewSearch(null);
   else if(r.v==="edition")m.innerHTML=await viewEdition(r.d);
   else if(r.v==="tag")m.innerHTML=await viewSearch(r.tag);
-  else if(r.v==="archives")m.innerHTML=await viewArchives();
+  else if(r.v==="archives")m.innerHTML=await viewArchives(r.page||1);
+  else if(r.v==="top")m.innerHTML=await viewTop();
   else if(r.v==="about")m.innerHTML=viewAbout();
   else if(["outils","personnes","evenements","favoris"].includes(r.v))m.innerHTML=await viewList(r.v);
   else m.innerHTML=await viewHome();
-  startStage();
+  startStage();setProgress(r.v==="edition"&&!query);track();
 }
 function closeMenu(){$("#menu").hidden=true;$("#menuBtn").setAttribute("aria-expanded","false")}
 window.addEventListener("hashchange",()=>{query="";$("#q").value="";closeMenu();render().then(()=>window.scrollTo({top:0}))});
