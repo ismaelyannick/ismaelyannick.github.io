@@ -459,10 +459,10 @@ function setTagDF(eds){TAGDF=new Map();eds.forEach(e=>new Set(postsOf([e]).flatM
 function keyTag(e){const c=new Map();postsOf([e]).forEach(p=>arr(p.tags).forEach(x=>c.set(x,(c.get(x)||0)+1)));let best=null,bs=-1;
   [...c].sort((a,b)=>String(a[0]).localeCompare(String(b[0]))).forEach(([x,n])=>{const sc=n/Math.log(2+(TAGDF.get(x)||1));if(sc>bs){bs=sc;best=x}});return best}
 function cardHTML(e){const tag=keyTag(e);let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
-  const ex=arr(e.essentiel)[e.apercu?1:0]||"";const n=synthsOf(e).length;
+  const ex=arr(e.essentiel)[e.apercu?1:0]||"";
   return `<a class="ecard" href="#e-${e.date}"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${esc(tag)}</span>`:""}<b>${esc(String(e.titre||"").split(/[,:]/)[0])}</b></div>
   <h3>${esc(e.titre)}</h3>${ex?`<p class="ex">${esc(ex)}</p>`:""}<span class="dt">${esc(fmt(e.date))}</span>
-  <span class="by"><img src="assets/avatar.jpg" alt="" width="22" height="22">Ismaël Yannick <span>· ${n?esc(n+" "+(n>1?t("synthS").toLowerCase():t("synthK").toLowerCase())):esc(arr(e.posts).length+" "+t("posts"))}</span></span></a>`}
+  <span class="by"><img src="assets/avatar.jpg" alt="" width="22" height="22">Ismaël Yannick</span></a>`}
 
 function stageHTML(){return `<div class="stage" id="stage" role="img" aria-label="${esc(t("stage")[5])}">
   <div class="tokens"><div class="tok t-color" data-tok="0"><i></i>color/accent</div><div class="tok" data-tok="1"><i></i>space/16</div><div class="tok t-radius" data-tok="2"><i></i>radius/lg</div><div class="tok t-type" data-tok="3"><i>Aa</i>font/display</div></div>
