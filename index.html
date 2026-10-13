@@ -523,7 +523,7 @@ function startStage(){stopStage();const st=document.getElementById("stage");if(!
 }
 /* ---------- views ---------- */
 function synthsOf(e){const xs=arr(e.syntheses).length?arr(e.syntheses):arr(e.tendances).map((x,i)=>({id:"t"+(i+1),titre:x.titre,texte:x.texte,posts:[]}));return xs.map((x,i)=>({...x,id:x.id||"s"+(i+1)}))}
-function synthCard(e,x,i,hide){const n=arr(x.posts).length;return `<a class="synth${i===0?" first":""}" href="#s-${e.date}-${encodeURIComponent(x.id)}"${hide?" hidden":""}>${i===0?`<span class="une">${esc(t("une"))}</span>`:""}<span class="k">${esc(t("synthK"))} ${String(i+1).padStart(2,"0")}${n?" · "+esc(t("synthN")(n)):""}</span><b>${esc(x.titre)}</b><p>${esc(x.texte)}</p><span class="go">${esc(t("synthGo"))}</span></a>`}
+function synthCard(e,x,i,hide){const n=arr(x.posts).length;return `<a class="synth${i===0?" first":""}" href="#s-${e.date}-${encodeURIComponent(x.id)}"${hide?" hidden":""}>${i===0?`<span class="une">${esc(t("une"))}</span>`:""}<b>${esc(x.titre)}</b><p>${esc(x.texte)}</p><span class="go">${esc(t("synthGo"))}</span></a>`}
 async function viewSynth(date,id){const e=await getEd(date,lang);if(!e)return empty("",t("notFound"));const xs=synthsOf({...e,date});const x=xs.find(y=>String(y.id)===id);if(!x)return empty("",t("notFound"));
   const ps=arr(e.posts).map((p,j)=>({p,key:date+"#"+(p.id||j)})).filter(o=>arr(x.posts).includes(o.p.id));const others=xs.filter(y=>y!==x);
   return `<div class="narrow reader"><div class="crumbs"><a class="back" href="#">${esc(t("back"))}</a><a class="back" href="#e-${date}">${esc(short(date))}</a></div>
