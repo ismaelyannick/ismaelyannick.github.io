@@ -9,4 +9,4 @@ Chaque soir, la veille ajoute une édition :
 - `data/editions/AAAA-MM-JJ.json` : l'édition du jour
 - `data/index.json` : la liste des éditions (`{"editions": ["AAAA-MM-JJ", ...]}`)
 
-L'ancien site (2023) reste disponible dans l'historique, étiquette `ancien-site-2023`.
+L'ancien site (2023) reste disponible dans l'historique, branche `ancien-site-2023`.
