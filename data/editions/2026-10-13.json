@@ -65,7 +65,6 @@
       "engagement": "Publié il y a 6 h",
       "id": "zalando",
       "idee": "L'équipe Design System de Zalando montre comment elle a utilisé l'IA pour construire des plugins Figma, des fichiers design.md et un environnement de prototypage en code de production, et explique que le plus dur n'a pas été de construire l'outil mais de prendre et documenter la décision derrière.",
-      "pourToi": "Le concept de design.md est directement applicable à tes expériences Design Agentic : documenter les composants pour que les agents Figma les utilisent correctement.",
       "role": "Communauté et meetups design systems",
       "tags": [
         "design-system",
@@ -85,7 +84,6 @@
       "engagement": "24 réactions · 11 commentaires",
       "id": "weave",
       "idee": "Lancement de Weave, un design system construit avec VS Code et Claude, hors de Figma, où chaque composant suit la même structure et où l'accessibilité fait partie du système au lieu d'être un document à part.",
-      "pourToi": "Un bon modèle de documentation de design system, et un exemple concret à montrer dans ta formation UX : un système documenté de bout en bout avec l'IA.",
       "role": "UX & Product Designer, design inclusif et piloté par l'IA",
       "tags": [
         "design-system",
@@ -105,7 +103,6 @@
       "engagement": "3 réactions · 4 commentaires",
       "id": "castanha",
       "idee": "Figma présente les serveurs MCP comme le lien entre design systems et IA, avec des agents qui lisent les tokens et créent des composants. Il est d'accord sur la tuyauterie, mais rappelle qu'un agent avec accès en écriture ne vaut que la gouvernance qui est derrière.",
-      "pourToi": "Exactement la question que pose ton expérience Design Agentic : quelles règles donnes-tu à tes agents avant de les laisser écrire dans un design system ?",
       "role": "Product Designer, ex-iFood et Caju, design systems B2B",
       "tags": [
         "design-system",

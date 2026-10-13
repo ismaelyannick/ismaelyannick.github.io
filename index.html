@@ -451,7 +451,6 @@ function postHTML(p,key){const s=saved.includes(key);
     ${p.idee?`<p class="idea">${boldLead(p.idee)}</p>`:""}
     ${arr(p.concret).length?`<ul class="concret">${arr(p.concret).map(c=>`<li>${esc(c)}</li>`).join("")}</ul>`:""}
     ${p.commentaires?`<p class="comments">${esc(t("comments"))} ${esc(p.commentaires)}</p>`:""}
-    ${p.pourToi?`<p class="foryou"><b>${esc(t("forYou"))}</b>${esc(p.pourToi)}</p>`:""}
     <div class="meta">${arr(p.tags).map(x=>`<a class="tag" href="#tag-${encodeURIComponent(x)}">${esc(x)}</a>`).join("")}${p.engagement?`<span>${esc(p.engagement)}</span>`:""}${link(p.url,t("viewPost"))}
       <button class="save" data-save="${esc(key)}" aria-pressed="${s}">${s?t("kept"):t("keep")}</button></div></article>`}
 const toolHTML=o=>`<div class="tile k-outil"><span class="kind">${esc(t("resource"))}</span><b>${esc(o.nom)}</b><p>${esc(o.note)}</p>${link(o.url,t("open"))}${o._dates?`<span class="src">${esc(t("cited"))} ${o._dates.length}${t("times")} · ${esc(short(o._dates[0]))}</span>`:""}</div>`;

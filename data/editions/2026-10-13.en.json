@@ -65,7 +65,6 @@
       "engagement": "Posted 6 h ago",
       "id": "zalando",
       "idee": "Zalando's Design System team shows how it used AI to build Figma plugins, design.md files and a prototyping environment in production code, and explains that the hard part wasn't building the tool but making and documenting the decision behind it.",
-      "pourToi": "The design.md concept applies directly to your Agentic Design experiments: document components so Figma agents use them correctly.",
       "role": "Design systems community and meetups",
       "tags": [
         "design-system",
@@ -85,7 +84,6 @@
       "engagement": "24 reactions · 11 comments",
       "id": "weave",
       "idee": "Launch of Weave, a design system built with VS Code and Claude, outside Figma, where every component follows the same structure and accessibility is part of the system instead of a separate document.",
-      "pourToi": "A good model for design system documentation, and a concrete example for your UX course: a system documented end to end with AI.",
       "role": "UX & Product Designer, inclusive and AI-driven design",
       "tags": [
         "design-system",
@@ -105,7 +103,6 @@
       "engagement": "3 reactions · 4 comments",
       "id": "castanha",
       "idee": "Figma pitches MCP servers as the link between design systems and AI, with agents reading tokens and creating components. He agrees on the plumbing, but argues an agent with write access is only as good as the governance behind it.",
-      "pourToi": "Exactly the question your Agentic Design experiment raises: what rules do you give agents before letting them write into a design system?",
       "role": "Product Designer, ex-iFood and Caju, B2B design systems",
       "tags": [
         "design-system",
