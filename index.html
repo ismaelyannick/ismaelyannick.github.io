@@ -237,6 +237,7 @@ button{font-family:inherit}
 .post-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .post-head .who{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;min-width:0}
 .post-head .src-badge{flex:none;align-self:flex-start;margin-top:3px}
+.src-logo{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;margin-top:3px;color:var(--muted);opacity:.8}.src-logo svg{width:16px;height:16px;fill:currentColor}.post:hover .src-logo{opacity:1}
 .plink{color:inherit;text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:0 1.5px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .2s}.plink:hover,.plink:focus-visible{background-size:100% 1.5px}
 .post-head .author{font:600 18.5px var(--display);letter-spacing:-.01em}
 .post-head .role{color:var(--card-muted);font-size:14.5px}
@@ -460,7 +461,10 @@ const empty=(p,b)=>`<div class="empty"><b>${esc(b||t("emptyT"))}</b>${esc(p)}</d
 const pageHead=(a,b,p)=>`<section class="page-head">${hl([a,b])}<p>${esc(p)}</p></section>`;
 function boldLead(s){s=String(s||"");const m=s.match(/^(.{12,90}?[.:])\s(.+)$/s);return m?`<b>${esc(m[1])}</b> ${esc(m[2])}`:esc(s)}
 const SRC={linkedin:["LinkedIn","s-li"],substack:["Substack","s-ss"],x:["X","s-x"]};
-function srcBadge(s){const v=SRC[String(s||"linkedin").toLowerCase()]||[s,"s-x"];return `<span class="src-badge ${v[1]}">${esc(v[0])}</span>`}
+const LOGO={linkedin:'<path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>',
+ x:'<path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/>',
+ substack:'<path d="M22.54 8.25H1.46V5.4h21.08zM1.46 10.8V24L12 18.11 22.54 24V10.8zM22.54 0H1.46v2.84h21.08z"/>'};
+function srcBadge(s){const k=String(s||"linkedin").toLowerCase(),v=SRC[k]||[s,"s-x"];return LOGO[k]?`<span class="src-logo" role="img" aria-label="${esc(v[0])}" title="${esc(v[0])}"><svg viewBox="0 0 24 24" aria-hidden="true">${LOGO[k]}</svg></span>`:`<span class="src-badge ${v[1]}">${esc(v[0])}</span>`}
 function toast(msg){const el=$("#toast");el.textContent=msg;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,1800)}
 async function copyText(txt){try{await navigator.clipboard.writeText(txt);return true}catch(_){return false}}
 const edUrl=d=>location.href.split("#")[0]+"#e-"+d;
