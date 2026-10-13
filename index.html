@@ -215,7 +215,9 @@ button{font-family:inherit}
 .trend b{font:600 17.5px/1.2 var(--display)}
 .trend p{margin:0;color:var(--trend-muted);font-size:15.5px}
 .post{background:var(--card);color:var(--card-ink);border:1px solid var(--line);border-radius:22px;padding:22px 24px;display:grid;gap:10px;scroll-margin-top:96px}
-.post-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.post-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.post-head .who{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;min-width:0}
+.post-head .src-badge{flex:none;align-self:flex-start;margin-top:3px}
 .post-head .author{font:600 18.5px var(--display);letter-spacing:-.01em}
 .post-head .role{color:var(--card-muted);font-size:14.5px}
 .src-badge{align-self:center;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:3px 7px}
@@ -445,7 +447,7 @@ const edUrl=d=>location.href.split("#")[0]+"#e-"+d;
 
 function postHTML(p,key){const s=saved.includes(key);
   return `<article class="post" id="p-${esc(String(key).replace(/[^a-zA-Z0-9_-]/g,"_"))}">
-    <div class="post-head">${srcBadge(p.source)}<span class="author">${esc(p.auteur)}</span><span class="role">${esc(p.role)}</span></div>
+    <div class="post-head"><span class="who"><span class="author">${esc(p.auteur)}</span><span class="role">${esc(p.role)}</span></span>${srcBadge(p.source)}</div>
     ${p.idee?`<p class="idea">${boldLead(p.idee)}</p>`:""}
     ${arr(p.concret).length?`<ul class="concret">${arr(p.concret).map(c=>`<li>${esc(c)}</li>`).join("")}</ul>`:""}
     ${p.commentaires?`<p class="comments">${esc(t("comments"))} ${esc(p.commentaires)}</p>`:""}
