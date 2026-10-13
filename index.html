@@ -35,6 +35,7 @@
   --shadow:0 10px 30px rgba(11,11,13,.08);
   --display:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --pc-bg:#FFF4D2; --pc-ink:#2A1F00;
   --g1:linear-gradient(135deg,#1C1D22 0%,#3A3C44 100%);
   --g2:linear-gradient(135deg,#FBC436 0%,#FFD25F 100%);
   --g3:linear-gradient(160deg,#2B2D33 0%,#5D5F66 100%);
@@ -44,7 +45,7 @@
   --bg:#0B0B0D; --bg-2:#16171B; --bg-3:#202127; --ink:#F4F4F1; --muted:#9A9CA5; --line:#2A2B31;
   --nav:#121317; --nav-btn:#202127; --menu-hover:#1D1E23;
   --pill:#3A2F10; --pill-ink:#FFE29A;
-  --accent:#FBC436; --accent-2:#FFD25F; --accent-ink:#0B0B0D; --accent-soft:#251F0E; --accent-soft-ink:#FFE7A3;
+  --accent:#FBC436; --accent-2:#FFD25F; --accent-ink:#0B0B0D; --accent-soft:#251F0E; --accent-soft-ink:#FFE7A3; --pc-bg:#1E1A0E; --pc-ink:#FFF4D2; --pc-op:.38;
   --card:#16171B; --card-ink:#F4F4F1; --card-muted:#9A9CA5; --chip:#202127; --trend:#16171B; --trend-ink:#F4F4F1; --trend-muted:#B4B6BE;
   --solid:#F4F4F1; --solid-ink:#0B0B0D; --link:#FBC436; --concret:#D3D4D9;
   --t-outil:#251F0E; --t-outil-b:#4A3D17; --t-outil-k:#FBC436;
@@ -55,7 +56,7 @@
   --bg:#0B0B0D; --bg-2:#16171B; --bg-3:#202127; --ink:#F4F4F1; --muted:#9A9CA5; --line:#2A2B31;
   --nav:#121317; --nav-btn:#202127; --menu-hover:#1D1E23;
   --pill:#3A2F10; --pill-ink:#FFE29A;
-  --accent:#FBC436; --accent-2:#FFD25F; --accent-ink:#0B0B0D; --accent-soft:#251F0E; --accent-soft-ink:#FFE7A3;
+  --accent:#FBC436; --accent-2:#FFD25F; --accent-ink:#0B0B0D; --accent-soft:#251F0E; --accent-soft-ink:#FFE7A3; --pc-bg:#1E1A0E; --pc-ink:#FFF4D2; --pc-op:.38;
   --card:#16171B; --card-ink:#F4F4F1; --card-muted:#9A9CA5; --chip:#202127; --trend:#16171B; --trend-ink:#F4F4F1; --trend-muted:#B4B6BE;
   --solid:#F4F4F1; --solid-ink:#0B0B0D; --link:#FBC436; --concret:#D3D4D9;
   --t-outil:#251F0E; --t-outil-b:#4A3D17; --t-outil-k:#FBC436;
@@ -160,7 +161,17 @@ button{font-family:inherit}
 .recent a:hover .t{text-decoration:underline;text-underline-offset:3px}
 
 /* Cards */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:36px 22px}
+.ecard{display:grid;gap:10px;align-content:start;text-decoration:none;color:var(--ink);min-width:0}
+.ecard .pc{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;display:grid;place-items:center;padding:22px;background:var(--pc-bg)}
+.ecard .pc::before{content:"";position:absolute;inset:-25%;background:var(--pc-blobs);filter:blur(34px);opacity:var(--pc-op,1);transition:transform .5s}
+.ecard:hover .pc::before{transform:scale(1.08) rotate(4deg)}@media (prefers-reduced-motion:reduce){.ecard .pc::before{transition:none}.ecard:hover .pc::before{transform:none}}
+.ecard .pc b{position:relative;font:600 clamp(19px,2.3vw,25px)/1.12 var(--display);letter-spacing:-.02em;text-align:center;color:var(--pc-ink);text-wrap:balance;max-width:92%}
+.ecard .pill{position:absolute;top:12px;left:12px;z-index:1;background:var(--bg);color:var(--ink);font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 9px}
+.ecard h3{margin:4px 0 0;font:600 17px/1.3 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ecard .ex{margin:0;color:var(--muted);font-size:14.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ecard .dt{font-size:13px;color:var(--muted)}
+.ecard .by{display:flex;align-items:center;gap:8px;font-size:13px}.ecard .by img{width:22px;height:22px;border-radius:50%;object-fit:cover}.ecard .by span{color:var(--muted)}
 .card{background:var(--card);color:var(--card-ink);border-radius:22px;padding:10px 10px 18px;display:grid;gap:12px;align-content:start;text-decoration:none;border:1px solid var(--line);min-width:0}
 .cover{border-radius:14px;aspect-ratio:16/10;padding:16px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;overflow:hidden}
 .cover b{font:700 clamp(18px,2.4vw,22px)/1.08 var(--display);letter-spacing:-.02em}
@@ -441,9 +452,12 @@ const toolHTML=o=>`<div class="tile k-outil"><span class="kind">${esc(t("resourc
 const personHTML=p=>`<div class="tile"><b>${esc(p.nom)}</b><span class="src">${esc(p.role)}</span><p>${esc(p.pourquoi)}</p>${link(p.url,t("profile"))}${p._dates?`<span class="src">${esc(t("spotted"))} ${p._dates.length}${t("times")} · ${esc(short(p._dates[0]))}</span>`:""}</div>`;
 const eventHTML=e=>`<div class="tile k-event"><span class="kind">${esc(t("event"))}</span><b>${esc(e.nom)}</b><span class="src">${esc(e.date)}${e.lieu?" · "+esc(e.lieu):""}</span><p>${esc(e.note)}</p>${link(e.url,t("info"))}</div>`;
 function coverTitle(e){const w=String(e.titre||"").split(" ");return `<i>${esc(w.slice(0,3).join(" "))}</i> ${esc(w.slice(3,8).join(" "))}${w.length>8?"…":""}`}
-function cardHTML(e){const tag=[...new Set(postsOf([e]).flatMap(p=>arr(p.tags)))][0];
-  return `<a class="card" href="#e-${e.date}"><div class="cover" style="background:${grad(e.date)}"><span class="dots"><span></span><span></span><span></span></span><b>${coverTitle(e)}</b></div>
-  <span class="chip">${esc(short(e.date))}${tag?" · "+esc(tag):""}</span><h3>${esc(e.titre)}</h3><p class="sub">${arr(e.posts).length} ${t("posts")} · ${readMin(e)} ${t("min")}</p></a>`}
+const BLOBS=["radial-gradient(40% 50% at 25% 30%,#FBC436 0,transparent 70%),radial-gradient(45% 55% at 80% 70%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 70% 20%,#F4F4F1 0,transparent 70%)","radial-gradient(45% 50% at 70% 35%,#FBC436 0,transparent 70%),radial-gradient(40% 50% at 20% 75%,#FFD25F 0,transparent 70%),radial-gradient(30% 35% at 30% 20%,#FFF4D2 0,transparent 70%)","radial-gradient(50% 45% at 50% 80%,#FBC436 0,transparent 70%),radial-gradient(35% 45% at 15% 25%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 85% 25%,#E9E2CC 0,transparent 70%)"];
+function cardHTML(e){const tag=[...new Set(postsOf([e]).flatMap(p=>arr(p.tags)))][0];let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
+  const ex=arr(e.essentiel)[e.apercu?1:0]||"";const n=synthsOf(e).length;
+  return `<a class="ecard" href="#e-${e.date}"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${esc(tag)}</span>`:""}<b>${esc(String(e.titre||"").split(/[,:]/)[0])}</b></div>
+  <h3>${esc(e.titre)}</h3>${ex?`<p class="ex">${esc(ex)}</p>`:""}<span class="dt">${esc(fmt(e.date))}</span>
+  <span class="by"><img src="assets/avatar.jpg" alt="" width="22" height="22">Ismaël Yannick <span>· ${n?esc(n+" "+(n>1?t("synthS").toLowerCase():t("synthK").toLowerCase())):esc(arr(e.posts).length+" "+t("posts"))}</span></span></a>`}
 
 function stageHTML(){return `<div class="stage" id="stage" role="img" aria-label="${esc(t("stage")[5])}">
   <div class="tokens"><div class="tok t-color" data-tok="0"><i></i>color/accent</div><div class="tok" data-tok="1"><i></i>space/16</div><div class="tok t-radius" data-tok="2"><i></i>radius/lg</div><div class="tok t-type" data-tok="3"><i>Aa</i>font/display</div></div>
