@@ -200,6 +200,25 @@ button{font-family:inherit}
 .section-label{scroll-margin-top:96px;font:500 12.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:26px 0 0}
 .essentiel{background:var(--accent-soft);color:var(--accent-soft-ink);border-radius:22px;padding:20px 24px}
 .essentiel ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:16.5px}
+.evts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:22px}
+.evt{position:relative;padding-top:16px}
+.evt::before,.evt::after{content:"";position:absolute;height:40px;border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;background:var(--bg-2)}
+.evt::before{left:12%;right:12%;top:0;opacity:.55}.evt::after{left:6%;right:6%;top:8px;opacity:.8}
+.evt-shell{position:relative;z-index:1;background:var(--bg-2);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.evt-head{display:flex;align-items:center;gap:9px;padding:11px 18px;color:var(--muted);font:500 14.5px var(--display)}
+.evt-body{background:var(--card);border-top:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:12px}
+.evt-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.evt-t{font:600 18px/1.3 var(--display);color:var(--ink)}
+.evt-det{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font:500 13.5px var(--display);text-decoration:none}
+.evt-det:hover{color:var(--ink);border-color:var(--ink)}
+.evt-when{margin:0;font:500 15.5px var(--display);color:var(--ink)}.evt-rel{color:var(--link)}
+.evt-row{margin:0;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14.5px}
+.evt-ctx{display:flex;gap:12px;border:1.5px dashed var(--line);border-radius:14px;padding:14px;background:var(--bg-2)}
+.evt-ctx p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}.evt-ctx b{color:var(--ink);font-weight:600}.evt-ctx .ei{color:var(--link);margin-top:2px}
+.evt-cta{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border:1px solid var(--line);border-radius:14px;color:var(--ink);font:600 15px var(--display);text-decoration:none;background:var(--bg-2)}
+.evt-cta:hover{border-color:var(--ink)}
+.evt-det:focus-visible,.evt-cta:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+.ei{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .synths{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 .synth{background:var(--card);color:var(--card-ink);border:1px solid var(--line);border-radius:22px;padding:20px 22px;display:grid;gap:8px;align-content:start;text-decoration:none;transition:border-color .15s,transform .15s}
 .synth:hover{border-color:var(--ink);transform:translateY(-2px)}.synth[hidden]{display:none!important}
@@ -373,7 +392,7 @@ fr:{menu:"Menu",search:"Outil, auteur, sujet…",home:"Accueil",archives:"Archiv
  essentials:"L'essentiel",trends:"Tendances",synthT:"Les éditions du soir",synthS:"Éditions",synthK:"Édition",une:"À la une",synthN:n=>n>1?n+" posts":n+" post",synthGo:"Lire l'édition →",more:"Voir plus",synthPosts:"Les posts de cette édition",synthOthers:"Les autres éditions du soir",fullEd:"Voir tout le récap du soir",noSynthPosts:"Édition tirée de l'ensemble du récap du soir.",toRead:"Posts à lire",toolsS:"Outils & ressources",peopleS:"Personnes à suivre",eventsS:"Événements",offers:"Offres ciblées",inEd:"Dans ce récap",
  forYou:"Pour toi",comments:"Dans les commentaires :",viewPost:"Voir le post ↗",open:"Ouvrir ↗",profile:"Profil ↗",profileOn:"Voir le profil",info:"Infos ↗",keep:"☆ Garder",kept:"★ Gardé",
  back:"← Accueil",prev:"← Soir précédent",next:"Soir suivant →",related:"Sur les mêmes sujets",readEd:"Voir le récap",copyLink:"Copier le lien",shareLi:"Partager sur LinkedIn",copied:"Lien copié",notes:"Notes de collecte :",preview:"aperçu",sigK:"Écrit par",sigTxt:"Product Designer à Abidjan. Je trie chaque soir ce qui compte en design agentique, IA et design systems.",sigCta:"Me suivre sur LinkedIn ↗",
- resource:"Ressource",event:"Événement",cited:"Cité",times:"×",spotted:"Repéré",
+ resource:"Ressource",event:"Événement",evSoon:"À venir",evPastH:"Passé",evDetails:"Détails",evCtx:"Contexte :",evCal:"Ajouter à mon agenda",evOpen:"Voir l'événement",evPast:"terminé",evToday:"aujourd'hui",evTomorrow:"demain",evIn:n=>"dans "+n+" jours",cited:"Cité",times:"×",spotted:"Repéré",
  archTitleA:"Archives",archTitleB:"de la veille",topA:"Les plus",topB:"cités",topP:"Ce qui revient le plus souvent d'un soir à l'autre, calculé automatiquement.",topTools:"Outils",topPeople:"Personnes",topTags:"Sujets",topNav:"Les plus cités",cites:n=>n>1?n+" citations":n+" citation",pageL:"Page",prevP:"← Plus récentes",nextP:"Plus anciennes →",archP:"Tous les récaps du soir, du plus récent au plus ancien.",editions:"récaps",edition:"récap",
  toolsA:"Outils",toolsB:"& ressources",toolsP:"Tout ce qui a été repéré, classé par nombre de citations.",peopleA:"Personnes",peopleB:"à suivre",peopleP:"Les auteurs qui publient du contenu de qualité sur ces sujets.",eventsA:"Événements",eventsB:"à venir",eventsP:"Meetups, webinars et conférences repérés.",savedA:"Mes",savedB:"favoris",savedP:"Les posts que tu as gardés, enregistrés dans ce navigateur.",
  searchA:"Recherche",found:n=>`${n} post${n>1?"s":""}`,inAll:"dans tous les récaps",clear:"Effacer la recherche",nothing:"Rien trouvé.",tryOther:"Essaie un outil (Figma, Claude), un auteur ou un sujet.",
@@ -391,7 +410,7 @@ en:{menu:"Menu",search:"Tool, author, topic…",home:"Home",archives:"Archive",a
  essentials:"Key takeaways",trends:"Trends",synthT:"Tonight's editions",synthS:"Editions",synthK:"Edition",une:"Top story",synthN:n=>n>1?n+" posts":n+" post",synthGo:"Read the edition →",more:"See more",synthPosts:"The posts in this edition",synthOthers:"Tonight's other editions",fullEd:"See the full evening digest",noSynthPosts:"Edition drawn from the whole evening digest.",toRead:"Posts to read",toolsS:"Tools & resources",peopleS:"People to follow",eventsS:"Events",offers:"Relevant jobs",inEd:"In this digest",
  forYou:"For you",comments:"In the comments:",viewPost:"View post ↗",open:"Open ↗",profile:"Profile ↗",profileOn:"View profile on",info:"Details ↗",keep:"☆ Save",kept:"★ Saved",
  back:"← Home",prev:"← Previous evening",next:"Next evening →",related:"On the same topics",readEd:"See the digest",copyLink:"Copy link",shareLi:"Share on LinkedIn",copied:"Link copied",notes:"Collection notes:",preview:"preview",sigK:"Written by",sigTxt:"Product Designer in Abidjan. Every evening I sort out what matters in agentic design, AI and design systems.",sigCta:"Follow me on LinkedIn ↗",
- resource:"Resource",event:"Event",cited:"Cited",times:"×",spotted:"Spotted",
+ resource:"Resource",event:"Event",evSoon:"Coming up",evPastH:"Past",evDetails:"Details",evCtx:"Context:",evCal:"Add to my calendar",evOpen:"See the event",evPast:"ended",evToday:"today",evTomorrow:"tomorrow",evIn:n=>"in "+n+" days",cited:"Cited",times:"×",spotted:"Spotted",
  archTitleA:"Archive",archTitleB:"of the digest",topA:"Most",topB:"cited",topP:"What keeps coming back from one evening to the next, computed automatically.",topTools:"Tools",topPeople:"People",topTags:"Topics",topNav:"Most cited",cites:n=>n>1?n+" mentions":n+" mention",pageL:"Page",prevP:"← Newer",nextP:"Older →",archP:"Every evening digest, newest first.",editions:"digests",edition:"digest",
  toolsA:"Tools",toolsB:"& resources",toolsP:"Everything spotted so far, ranked by number of mentions.",peopleA:"People",peopleB:"to follow",peopleP:"Authors who regularly publish quality content on these topics.",eventsA:"Upcoming",eventsB:"events",eventsP:"Meetups, webinars and conferences spotted.",savedA:"Your",savedB:"saved posts",savedP:"Posts you saved, stored in this browser.",
  searchA:"Search",found:n=>`${n} post${n>1?"s":""}`,inAll:"across all digests",clear:"Clear search",nothing:"Nothing found.",tryOther:"Try a tool (Figma, Claude), an author or a topic.",
@@ -462,7 +481,24 @@ function profileOf(name,url,plat){const isX=/(^|\.)(x|twitter)\.com/i.test(url||
   return {href:direct||P[1](name),label:P[0]}}
 function authorLink(name,url,plat){const pr=profileOf(name,url,plat);return `<a class="plink" href="${esc(pr.href)}" target="_blank" rel="noopener" aria-label="${esc(name)} — ${esc(t("profileOn"))} ${esc(pr.label)}">${esc(name)}</a>`}
 const personHTML=p=>{const pr=profileOf(p.nom,p.url,p.plateforme);return `<div class="tile"><b>${authorLink(p.nom,p.url,p.plateforme)}</b><span class="src">${esc(p.role)}</span><p>${esc(p.pourquoi)}</p><a href="${esc(pr.href)}" target="_blank" rel="noopener">${esc(t("profileOn"))} ${esc(pr.label)} ↗</a>${p._dates?`<span class="src">${esc(t("spotted"))} ${p._dates.length}${t("times")} · ${esc(short(p._dates[0]))}</span>`:""}</div>`};
-const eventHTML=e=>`<div class="tile k-event"><span class="kind">${esc(t("event"))}</span><b>${esc(e.nom)}</b><span class="src">${esc(e.date)}${e.lieu?" · "+esc(e.lieu):""}</span><p>${esc(e.note)}</p>${link(e.url,t("info"))}</div>`;
+const MO={janvier:1,février:2,fevrier:2,mars:3,avril:4,mai:5,juin:6,juillet:7,août:8,aout:8,septembre:9,octobre:10,novembre:11,décembre:12,decembre:12,january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+function evDate(s){s=String(s||"").toLowerCase();let m=s.match(/(\d{4})-(\d{2})-(\d{2})/);if(m)return new Date(Date.UTC(+m[1],m[2]-1,+m[3]));
+  m=s.match(/(\d{1,2})(?:er)?\s+([a-zéû]+)\s+(\d{4})/);if(m&&MO[m[2]])return new Date(Date.UTC(+m[3],MO[m[2]]-1,+m[1]));
+  m=s.match(/([a-z]+)\s+(\d{1,2}),?\s+(\d{4})/);if(m&&MO[m[1]])return new Date(Date.UTC(+m[3],MO[m[1]]-1,+m[2]));return null}
+function evWhen(d){if(!d)return "";const n=new Date(),today=Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()),k=Math.round((d-today)/864e5);
+  return k<0?t("evPast"):k===0?t("evToday"):k===1?t("evTomorrow"):t("evIn")(k)}
+const IC={clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',pin:'<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'};
+const ic=k=>`<svg class="ei" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
+function gcal(e,d){if(!d)return "";const f=x=>x.toISOString().slice(0,10).replace(/-/g,"");const d2=new Date(+d+864e5);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(e.nom)+"&dates="+f(d)+"/"+f(d2)+"&location="+encodeURIComponent(e.lieu||"")+"&details="+encodeURIComponent((e.note||"")+(e.url?"\n"+e.url:""))}
+const eventHTML=e=>{const d=evDate(e.date),w=evWhen(d),past=w===t("evPast"),cal=gcal(e,d);
+  return `<div class="evt"><div class="evt-shell"><div class="evt-head">${ic("clock")}<span>${esc(past?t("evPastH"):t("evSoon"))}</span></div>
+  <div class="evt-body"><div class="evt-top"><b class="evt-t">${esc(e.nom)}</b>${e.url?`<a class="evt-det" href="${esc(e.url)}" target="_blank" rel="noopener" aria-label="${esc(t("evDetails"))} : ${esc(e.nom)}">${esc(t("evDetails"))} <span aria-hidden="true">↗</span></a>`:""}</div>
+  <p class="evt-when">${esc(e.date)}${w?` · <span class="evt-rel">${esc(w)}</span>`:""}</p>
+  ${e.lieu?`<p class="evt-row">${ic("pin")}${esc(e.lieu)}</p>`:""}
+  ${e.note?`<div class="evt-ctx">${ic("spark")}<p><b>${esc(t("evCtx"))}</b> ${esc(e.note)}</p></div>`:""}
+  ${cal&&!past?`<a class="evt-cta" href="${esc(cal)}" target="_blank" rel="noopener">${ic("cal")}${esc(t("evCal"))}</a>`:e.url?`<a class="evt-cta" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(t("evOpen"))}</a>`:""}
+  </div></div></div>`};
 function coverTitle(e){const w=String(e.titre||"").split(" ");return `<i>${esc(w.slice(0,3).join(" "))}</i> ${esc(w.slice(3,8).join(" "))}${w.length>8?"…":""}`}
 const BLOBS=["radial-gradient(40% 50% at 25% 30%,#FBC436 0,transparent 70%),radial-gradient(45% 55% at 80% 70%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 70% 20%,#F4F4F1 0,transparent 70%)","radial-gradient(45% 50% at 70% 35%,#FBC436 0,transparent 70%),radial-gradient(40% 50% at 20% 75%,#FFD25F 0,transparent 70%),radial-gradient(30% 35% at 30% 20%,#FFF4D2 0,transparent 70%)","radial-gradient(50% 45% at 50% 80%,#FBC436 0,transparent 70%),radial-gradient(35% 45% at 15% 25%,#FFE7A3 0,transparent 70%),radial-gradient(35% 40% at 85% 25%,#E9E2CC 0,transparent 70%)"];
 const TI={grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="3.5"/>',
@@ -576,7 +612,7 @@ async function viewEdition(date){const e=await getEd(date,lang);if(!e)return emp
     ${posts.length?`${lab("posts")}${posts.map((p,j)=>postHTML(p,date+"#"+(p.id||j))).join("")}`:""}
     ${arr(e.outils).length?`${lab("outils")}<div class="tiles">${arr(e.outils).map(toolHTML).join("")}</div>`:""}
     ${arr(e.personnes).length?`${lab("personnes")}<div class="tiles">${arr(e.personnes).map(personHTML).join("")}</div>`:""}
-    ${arr(e.evenements).length?`${lab("evenements")}<div class="tiles">${arr(e.evenements).map(eventHTML).join("")}</div>`:""}
+    ${arr(e.evenements).length?`${lab("evenements")}<div class="evts">${arr(e.evenements).map(eventHTML).join("")}</div>`:""}
     ${arr(e.offres).length?`${lab("offres")}<div class="tiles">${arr(e.offres).map(o=>`<div class="tile"><b>${esc(o.poste)}</b><p>${esc(o.entreprise)} · ${esc(o.lieu)}</p>${link(o.url,t("open"))}</div>`).join("")}</div>`:""}
     ${share}
     <div class="sig"><img src="assets/avatar.jpg" alt="" width="56" height="56"><div><span class="k">${esc(t("sigK"))}</span><b>${esc(t("aboutName"))}</b><p>${esc(t("sigTxt"))}<br><a href="https://www.linkedin.com/in/isma%C3%ABl-yannick-92b9111a3/" target="_blank" rel="noopener">${esc(t("sigCta"))}</a></p></div></div>
@@ -615,7 +651,7 @@ async function viewTop(){const eds=await allEds();if(!eds.length)return pageHead
 async function viewList(kind){const eds=await allEds();const q=s=>!query||JSON.stringify(s).toLowerCase().includes(query);let body="";
   if(kind==="outils"){const xs=collect(eds,"outils").filter(q).sort((a,b)=>b._dates.length-a._dates.length);body=xs.length?`<div class="tiles">${xs.map(toolHTML).join("")}</div>`:empty(t("emptyTools"));return pageHead(t("toolsA"),t("toolsB"),t("toolsP"))+body}
   if(kind==="personnes"){const xs=collect(eds,"personnes").filter(q).sort((a,b)=>b._dates.length-a._dates.length);body=xs.length?`<div class="tiles">${xs.map(personHTML).join("")}</div>`:empty(t("emptyPeople"));return pageHead(t("peopleA"),t("peopleB"),t("peopleP"))+body}
-  if(kind==="evenements"){const xs=collect(eds,"evenements").filter(q);body=xs.length?`<div class="tiles">${xs.map(eventHTML).join("")}</div>`:empty(t("emptyEvents"));return pageHead(t("eventsA"),t("eventsB"),t("eventsP"))+body}
+  if(kind==="evenements"){const xs=collect(eds,"evenements").filter(q);body=xs.length?`<div class="evts">${xs.map(eventHTML).join("")}</div>`:empty(t("emptyEvents"));return pageHead(t("eventsA"),t("eventsB"),t("eventsP"))+body}
   if(kind==="favoris"){const xs=postsOf(eds).filter(p=>saved.includes(p._key));body=xs.length?`<div class="narrow reader" style="padding-top:0">${xs.map(p=>postHTML(p,p._key)).join("")}</div>`:empty(t("emptySaved"));return pageHead(t("savedA"),t("savedB"),t("savedP"))+body}}
 
 async function viewSearch(tag){const eds=await allEds();const hits=postsOf(eds).filter(p=>(!query||JSON.stringify(p).toLowerCase().includes(query))&&(!tag||arr(p.tags).includes(tag)));
