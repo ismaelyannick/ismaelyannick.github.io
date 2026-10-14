@@ -219,7 +219,15 @@ button{font-family:inherit}
 .evt-cta:hover{border-color:var(--ink)}
 .evt-det:focus-visible,.evt-cta:focus-visible{outline:3px solid var(--link);outline-offset:2px}
 .ei{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.rx{margin-top:56px}
+.rx{margin-top:0}
+.sec-h{margin:72px 0 32px;font:400 clamp(34px,5vw,52px)/1.05 var(--display);letter-spacing:-.03em;color:var(--ink)}
+.pc.illus{padding:0;background:#FFF4D2}.pc.illus::before{display:none}.land{position:absolute;inset:0;width:100%;height:100%;display:block}
+.land .ls-d{display:none}
+:root[data-theme="dark"] .land .ls-l{display:none}:root[data-theme="dark"] .land .ls-d{display:inline}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .land .ls-l{display:none}:root:not([data-theme="light"]) .land .ls-d{display:inline}}
+.rx-card:hover .land,.rx-feat:hover .land{transform:scale(1.03)}.land{transition:transform .5s ease}
+@media (prefers-reduced-motion:reduce){.land{transition:none}.rx-card:hover .land,.rx-feat:hover .land{transform:none}}
+.pc.illus .pill{z-index:2}
 .rx-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:36px}
 .rx-head h2{margin:0;font:400 clamp(34px,5vw,52px)/1 var(--display);letter-spacing:-.03em}.rx-head p{margin:0;color:var(--muted);font-size:15px}
 .rx-feat{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center;text-decoration:none;color:var(--ink)}
@@ -551,10 +559,41 @@ let TAGDF=new Map();
 function setTagDF(eds){TAGDF=new Map();eds.forEach(e=>new Set(postsOf([e]).flatMap(p=>arr(p.tags))).forEach(x=>TAGDF.set(x,(TAGDF.get(x)||0)+1)))}
 function keyTag(e){const c=new Map();postsOf([e]).forEach(p=>arr(p.tags).forEach(x=>c.set(x,(c.get(x)||0)+1)));let best=null,bs=-1;
   [...c].sort((a,b)=>String(a[0]).localeCompare(String(b[0]))).forEach(([x,n])=>{const sc=n/Math.log(2+(TAGDF.get(x)||1));if(sc>bs){bs=sc;best=x}});return best}
+/* ---------- covers illustrées (paysages génératifs) ---------- */
+const LPAL=[
+ {sky:["#FFF6DA","#FFE08A"],sun:"#FBC436",h:["#F7D98B","#EDC15A","#C9973A","#5B4A1E"],tr:["#6B7A34","#3F4A22"],ac:"#FF9F3A",barn:"#2A1F00",roof:"#C2410C"},
+ {sky:["#FFEFD0","#FBC98A"],sun:"#FFD25F",h:["#F2C27E","#DFA05A","#B3743A","#4E3420"],tr:["#6D5A2E","#3A2E16"],ac:"#FBC436",barn:"#2A1F00",roof:"#8A1C1C"},
+ {sky:["#FFF3C4","#CDE8D9"],sun:"#FBC436",h:["#BFDCC7","#8FC0A6","#5E9A82","#244A3E"],tr:["#2F5E4C","#1C3A30"],ac:"#FBC436",barn:"#1C1A12",roof:"#B45309"}];
+const LNIGHT={sky:["#0B0B0D","#2E2711"],sun:"#FFE29A",h:["#55461A","#433713","#2E2610","#17130A"],tr:["#3A3014","#241E0C"],ac:"#FBC436",barn:"#050505",roof:"#3A2F10"};
+function rng(seed){let h=1779033703^String(seed).length;for(const c of String(seed)){h=Math.imul(h^c.charCodeAt(0),3432918353);h=h<<13|h>>>19}
+  return ()=>{h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return((h^=h>>>16)>>>0)/4294967296}}
+function hill(r,base,amp,W,H){const n=3+Math.floor(r()*3);const pts=[];for(let i=0;i<=n;i++)pts.push([i/n*W,base-amp*(.35+r()*.65)]);
+  let d=`M0 ${H} L0 ${pts[0][1].toFixed(1)}`;for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i],cx=(x1-x0)/2;d+=` C${(x0+cx).toFixed(1)} ${y0.toFixed(1)} ${(x1-cx).toFixed(1)} ${y1.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`}
+  return d+` L${W} ${H} Z`}
+function scene(seed,P,id,night){const r=rng(seed),W=800,H=600;let s="";
+  s+=`<linearGradient id="k${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky[0]}"/><stop offset="1" stop-color="${P.sky[1]}"/></linearGradient>`;
+  P.h.forEach((c,i)=>{s+=`<linearGradient id="h${id}${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${P.h[Math.min(3,i+1)]}" stop-opacity=".9"/></linearGradient>`});
+  let g=`<rect width="${W}" height="${H}" fill="url(#k${id})"/>`;
+  const sx=120+r()*560,sy=90+r()*90,sr=38+r()*34;
+  g+=`<circle cx="${sx|0}" cy="${sy|0}" r="${(sr*2.4)|0}" fill="${P.sun}" opacity="${night?.08:.18}"/><circle cx="${sx|0}" cy="${sy|0}" r="${sr|0}" fill="${P.sun}"/>`;
+  if(night)for(let i=0;i<14;i++)g+=`<circle cx="${(r()*W)|0}" cy="${(r()*220)|0}" r="${(1+r()*1.6).toFixed(1)}" fill="#FFF4D2" opacity="${(.4+r()*.5).toFixed(2)}"/>`;
+  const bases=[300,380,450,530],amps=[120,110,90,60];
+  for(let i=0;i<4;i++){g+=`<path d="${hill(r,bases[i]+r()*30,amps[i],W,H)}" fill="url(#h${id}${i})"/>`;
+    if(i===1){const nd=1+Math.floor(r()*2);for(let k=0;k<nd;k++){const dx=80+r()*640,rx=130+r()*120,ry=150+r()*110;g+=`<ellipse cx="${dx|0}" cy="${(bases[2]+60)|0}" rx="${rx|0}" ry="${ry|0}" fill="url(#h${id}1)"/>`}}
+    if(i===3){const nt=2+Math.floor(r()*3),gy=bases[3]+40;const xs=[];for(let k=0;k<nt;k++){let tx;do{tx=30+r()*740}while(xs.some(x=>Math.abs(x-tx)<110));xs.push(tx)}
+      if(r()<.6){const bx=380+r()*300,by=gy-6;g+=`<path d="M${bx|0} ${by|0} l70 -40 l120 0 l46 40 z" fill="${P.roof}"/><rect x="${(bx+14)|0}" y="${by|0}" width="200" height="46" fill="${P.barn}"/><rect x="${(bx+44)|0}" y="${(by+12)|0}" width="16" height="14" fill="${P.sun}"/>`}
+      xs.forEach((tx,k)=>{const th=110+r()*90,tw=th*(.6+r()*.25),acc=r()<.25,cy=gy-th*.62;
+        g+=`<line x1="${tx|0}" y1="${(cy)|0}" x2="${tx|0}" y2="${(gy+6)|0}" stroke="${P.tr[1]}" stroke-width="4"/><ellipse cx="${tx|0}" cy="${cy|0}" rx="${(tw/2)|0}" ry="${(th/2)|0}" fill="${acc?P.ac:P.tr[k%2]}"/><ellipse cx="${(tx-tw*.12)|0}" cy="${(cy-th*.12)|0}" rx="${(tw*.28)|0}" ry="${(th*.3)|0}" fill="#FFFFFF" opacity=".08"/>`});
+      g+=`<rect x="0" y="${(gy+4)|0}" width="${W}" height="${H}" fill="${P.h[3]}"/>`;
+      if(r()<.5){const ax=60+r()*500;for(let k=0;k<2;k++){const x=ax+k*70;g+=`<path d="M${x|0} ${(gy+28)|0} q14 -16 34 -8 l6 -6 l4 10 l-2 14 m-36 0 l0 -10 m24 10 l0 -10" fill="${P.tr[1]}" stroke="${P.tr[1]}" stroke-width="3" stroke-linecap="round"/>`}}}}
+  const nb=Math.floor(r()*4);for(let i=0;i<nb;i++){const bx=150+r()*500,by=120+r()*120;g+=`<path d="M${bx|0} ${by|0} q6 -6 12 0 q6 -6 12 0" fill="none" stroke="${night?"#FFF4D2":P.h[3]}" stroke-width="2" opacity=".7"/>`}
+  return {defs:s,g}}
+function landscape(seed){const id=(rng(seed)()*1e9|0).toString(36),P=LPAL[Math.floor(rng(seed+"p")()*LPAL.length)],a=scene(seed,P,id+"l",false),b=scene(seed,LNIGHT,id+"d",true);
+  return `<svg class="land" viewBox="0 0 800 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><defs>${a.defs}${b.defs}<filter id="n${id}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/></filter></defs><g class="ls-l">${a.g}</g><g class="ls-d">${b.g}</g><rect width="800" height="600" filter="url(#n${id})" opacity=".35" style="mix-blend-mode:multiply"/></svg>`}
 function coverHTML(seed,title,tag){let h=0;for(const c of String(seed))h=(h*31+c.charCodeAt(0))>>>0;
-  return `<div class="ecard cover-hero" aria-hidden="true"><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}">${tag?`<span class="pill">${tagIcon(tag)}${esc(tag)}</span>`:""}<b>${esc(String(title||"").split(/[,:]/)[0])}</b></div></div>`}
+  return `<div class="ecard cover-hero" aria-hidden="true"><div class="pc illus">${landscape(seed)}${tag?`<span class="pill">${tagIcon(tag)}${esc(tag)}</span>`:""}</div></div>`}
 function rxCard(e,hide){const tag=keyTag(e),ex=arr(e.essentiel)[e.apercu?1:0]||"";let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
-  return `<a class="rx-card" href="#e-${e.date}" data-tag="${esc(tag||"")}"${hide?" hidden":""}><div class="pc" style="--pc-blobs:${BLOBS[h%BLOBS.length]}"><b>${esc(String(e.titre||"").split(/[,:]/)[0])}</b></div>
+  return `<a class="rx-card" href="#e-${e.date}" data-tag="${esc(tag||"")}"${hide?" hidden":""}><div class="pc illus">${landscape(e.date)}</div>
   ${tag?`<span class="rtag">${esc(tag)}</span>`:""}<h3>${esc(e.titre)}</h3>${ex?`<p>${esc(ex)}</p>`:""}<span class="rx-dt">${esc(fmt(e.date))} · ${readMin(e)} ${esc(t("min"))}</span></a>`}
 function cardHTML(e){const tag=keyTag(e);let h=0;for(const c of e.date)h=(h*31+c.charCodeAt(0))>>>0;
   const ex=arr(e.essentiel)[e.apercu?1:0]||"";
@@ -615,14 +654,14 @@ async function viewHome(){const eds=await allEds();setTagDF(eds);const L=eds[0];
   ${stageHTML()}</section>`;
   if(!L)return h+empty(t("noEdP"),t("noEd"));
   const tt=topTags(eds);if(tt.length)h+=`<div class="topics">${tt.map(([x,n])=>`<a class="topic" href="#tag-${encodeURIComponent(x)}">${tagIcon(x)}${esc(x)}<small>${n}</small></a>`).join("")}</div>`;
-  const sy=synthsOf(L);if(sy.length)h+=`<div class="eyebrow">${esc(t("synthT"))}</div><div class="synths" id="synths">${sy.map((x,i)=>synthCard(L,x,i,i>=2)).join("")}</div>${sy.length>2?`<div class="more"><button class="ghost-btn" id="moreSynth">${esc(t("more"))}</button></div>`:""}`;
+  const sy=synthsOf(L);if(sy.length)h+=`<h2 class="sec-h">${esc(t("synthT"))}</h2><div class="synths" id="synths">${sy.map((x,i)=>synthCard(L,x,i,i>=2)).join("")}</div>${sy.length>2?`<div class="more"><button class="ghost-btn" id="moreSynth">${esc(t("more"))}</button></div>`:""}`;
   const rest=eds.slice(1),ft=keyTag(L),tabs=[...new Set(rest.map(keyTag).filter(Boolean))].slice(0,6);
-  h+=`<section class="rx" aria-labelledby="rxT"><div class="rx-head"><h2 id="rxT">${esc(t("latest"))}</h2><p>${esc(t("rxSub"))}</p></div>
+  h+=`<section class="rx" aria-labelledby="rxT"><h2 class="sec-h" id="rxT">${esc(t("latest"))}</h2>
   <a class="rx-feat" href="#e-${L.date}">${coverHTML(L.date,L.titre,null).replace('aria-hidden="true"','aria-hidden="true" data-k="feat"')}
    <div class="rx-ft"><h3>${esc(L.titre)}</h3>${arr(L.essentiel)[L.apercu?1:0]?`<p>${esc(arr(L.essentiel)[L.apercu?1:0])}</p>`:""}
    <div class="rx-meta">${ft?`<span class="rtag">${esc(ft)}</span>`:""}<span class="rx-dt">${esc(fmt(L.date))} · ${readMin(L)} ${esc(t("min"))}</span></div></div></a>`;
   if(rest.length){h+=`${tabs.length>1?`<div class="rx-tabs" role="group" aria-label="${esc(t("rxFilter"))}"><button data-rxf="" aria-pressed="true">${esc(t("rxAll"))}</button>${tabs.map(x=>`<button data-rxf="${esc(x)}" aria-pressed="false">${esc(x)}</button>`).join("")}</div>`:""}
-   <div class="rx-grid" id="rxGrid">${rest.map((e,i)=>rxCard(e,i>=6)).join("")}</div>${rest.length>6?`<div class="rx-more"><button id="rxMore">${esc(t("rxMore"))} <span aria-hidden="true">+</span></button></div>`:""}`}
+   <div class="rx-grid" id="rxGrid">${rest.map((e,i)=>rxCard(e,i>=6)).join("")}</div>${rest.length>6?`<div class="more"><button class="ghost-btn" id="rxMore">${esc(t("more"))}</button></div>`:""}`}
   h+=`</section>`;
   return h}
 
