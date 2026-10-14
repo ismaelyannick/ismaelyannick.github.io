@@ -252,27 +252,27 @@ button{font-family:inherit}
 .rx-more button{background:none;border:0;border-bottom:1.5px solid var(--ink);padding:8px 2px;color:var(--ink);font:600 13px var(--display);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;display:inline-flex;gap:10px;align-items:center}
 .rx-feat:focus-visible,.rx-card:focus-visible,.rx-tabs button:focus-visible,.rx-more button:focus-visible{outline:3px solid var(--link);outline-offset:4px}
 @media (max-width:820px){.rx-feat{grid-template-columns:minmax(0,1fr)}.rx-feat .cover-hero .pc{aspect-ratio:16/9}}
-.sp{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:70}
-.sp-btn{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;border:0;background:rgba(28,28,30,.88);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.sp{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:70;display:grid;justify-items:center}
+.sp-btn{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;border:0;background:rgba(38,33,30,.86);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .sp[data-on] .sp-btn{display:none}
-.sp-ico,.sp-c svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.sp-ico .spk,.sp-c .fill{fill:currentColor;stroke:none}
-.sp-card{width:min(300px,calc(100vw - 32px));background:rgba(28,28,30,.88);color:#fff;border-radius:24px;padding:14px 16px 12px;box-shadow:0 14px 40px rgba(0,0,0,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:grid;gap:8px}
-.sp-card[hidden]{display:none}
-.sp-mq{overflow:hidden;white-space:nowrap;font:500 14.5px var(--display);color:#fff;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.sp-mq span{display:inline-block;padding-left:100%;animation:mq 14s linear infinite}
+.sp-ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.sp-ico .spk,.sp-c .fill{fill:currentColor;stroke:none}
+.sp-wrap{display:grid;justify-items:center;gap:8px}.sp-wrap[hidden]{display:none}
+.sp-card{width:min(340px,calc(100vw - 32px));background:rgba(38,33,30,.86);color:#fff;border-radius:30px;padding:22px 28px 20px;box-shadow:0 18px 50px rgba(0,0,0,.3);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);display:grid;gap:18px}
+.sp-mq{overflow:hidden;white-space:nowrap;font:400 19px/1.2 var(--display);letter-spacing:-.01em;color:#fff}
+.sp-mq span{display:inline-block;padding-left:100%;animation:mq 16s linear infinite}
 @keyframes mq{to{transform:translateX(-100%)}}
-.sp-ctl{display:flex;justify-content:space-between;align-items:center}
-.sp-c{width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
-.sp-c:hover{background:rgba(255,255,255,.1)}.sp-ghost{visibility:hidden}
-.sp-mute{color:rgba(255,255,255,.7)}.sp-mute svg{width:19px;height:19px}
-.sp-main svg{width:26px;height:26px}
+.sp-ctl{display:flex;justify-content:center;align-items:center;gap:34px}
+.sp-c{width:48px;height:48px;border:0;border-radius:50%;background:transparent;color:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;padding:0;transition:background .15s}
+.sp-c:hover{background:rgba(255,255,255,.08)}.sp-c svg{width:30px;height:24px}.sp-main svg{width:30px;height:30px}
 .sp-main .ic-play{display:none}.sp[data-paused] .sp-main .ic-play{display:inline}.sp[data-paused] .sp-main .ic-pause{display:none}
-.sp-seek{-webkit-appearance:none;appearance:none;width:100%;height:16px;background:transparent;margin:0;cursor:pointer;--p:0%}
-.sp-seek::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#FBC436 var(--p),rgba(255,255,255,.25) var(--p))}
-.sp-seek::-moz-range-track{height:3px;border-radius:3px;background:rgba(255,255,255,.25)}.sp-seek::-moz-range-progress{height:3px;border-radius:3px;background:#FBC436}
-.sp-seek::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;margin-top:-4.5px}
-.sp-seek::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:#fff}
-.sp-btn:focus-visible,.sp-c:focus-visible,.sp-seek:focus-visible{outline:3px solid #FBC436;outline-offset:2px}
+.sp-seek{-webkit-appearance:none;appearance:none;justify-self:center;width:78%;height:22px;background:transparent;margin:0;cursor:pointer}
+.sp-seek::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:rgba(255,255,255,.22)}
+.sp-seek::-moz-range-track{height:4px;border-radius:4px;background:rgba(255,255,255,.22)}
+.sp-seek::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;margin-top:-8px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.sp-seek::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:#fff}
+.sp-handle{width:110px;height:24px;border:0;border-radius:999px;background:rgba(38,33,30,.86);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.sp-handle span{width:44px;height:4px;border-radius:4px;background:rgba(255,255,255,.75)}
+.sp-btn:focus-visible,.sp-c:focus-visible,.sp-seek:focus-visible,.sp-handle:focus-visible{outline:3px solid #FBC436;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.sp-mq span{animation:none;padding-left:0}}
 .synths{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 .synth{background:var(--card);color:var(--card-ink);border:1px solid var(--line);border-radius:22px;padding:20px 22px;display:grid;gap:8px;align-content:start;text-decoration:none;transition:border-color .15s,transform .15s}
@@ -432,14 +432,13 @@ button{font-family:inherit}
 </div>
 <div class="toast" id="toast" hidden></div>
 <div class="sp" id="sp" role="region">
-  <div class="sp-card" id="spBar" hidden>
+  <div class="sp-wrap" id="spBar" hidden><div class="sp-card">
    <div class="sp-mq" aria-live="polite"><span id="spMq"></span></div>
-   <div class="sp-ctl"><button type="button" id="spMute" class="sp-c sp-mute"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
-    <button type="button" id="spPrev" class="sp-c"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M12 6.5v11L3.5 12zM21 6.5v11L12.5 12z"/></svg></button>
-    <button type="button" id="spPlay" class="sp-c sp-main"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="ic-pause"><path class="fill" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></g><g class="ic-play"><path class="fill" d="M7 4.5l13 7.5-13 7.5z"/></g></svg></button>
-    <button type="button" id="spNext" class="sp-c"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M12 6.5v11l8.5-5.5zM3 6.5v11l8.5-5.5z"/></svg></button><span class="sp-c sp-ghost" aria-hidden="true"></span></div>
+   <div class="sp-ctl"><button type="button" id="spPrev" class="sp-c"><svg viewBox="0 0 32 24" aria-hidden="true"><path class="fill" d="M15 6.2v11.6c0 .9-1 1.4-1.7.9L5.6 13a1.2 1.2 0 0 1 0-2l7.7-5.7c.7-.5 1.7 0 1.7.9zM28 6.2v11.6c0 .9-1 1.4-1.7.9L18.6 13a1.2 1.2 0 0 1 0-2l7.7-5.7c.7-.5 1.7 0 1.7.9z"/></svg></button>
+    <button type="button" id="spPlay" class="sp-c sp-main"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="ic-pause"><rect class="fill" x="6" y="4.5" width="4" height="15" rx="1.3"/><rect class="fill" x="14" y="4.5" width="4" height="15" rx="1.3"/></g><g class="ic-play"><path class="fill" d="M7 5.4v13.2c0 1 1.1 1.6 1.9 1.1l10.4-6.6a1.3 1.3 0 0 0 0-2.2L8.9 4.3C8.1 3.8 7 4.4 7 5.4z"/></g></svg></button>
+    <button type="button" id="spNext" class="sp-c"><svg viewBox="0 0 32 24" aria-hidden="true"><path class="fill" d="M4 6.2v11.6c0 .9 1 1.4 1.7.9l7.7-5.7a1.2 1.2 0 0 0 0-2L5.7 5.3C5 4.8 4 5.3 4 6.2zM17 6.2v11.6c0 .9 1 1.4 1.7.9l7.7-5.7a1.2 1.2 0 0 0 0-2l-7.7-5.7c-.7-.5-1.7 0-1.7.9z"/></svg></button></div>
    <input type="range" id="spSeek" class="sp-seek" min="0" max="1000" value="0" step="1">
-  </div>
+  </div><button type="button" id="spMute" class="sp-handle"><span aria-hidden="true"></span></button></div>
   <button class="sp-btn" id="spBtn" type="button" aria-pressed="false" aria-controls="spBar"><svg class="sp-ico" viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><g class="off"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
 </div>
 
@@ -775,7 +774,7 @@ const PLAYLIST=[
  {t:"Good Night",a:"FASSounds",src:"assets/music/04.mp3"},
  {t:"Better Day",a:"penguinmusic",src:"assets/music/05.mp3"}];
 const AUD=new Audio();AUD.preload="none";let spI=0,spSeeking=false;
-function spLoad(i){spI=(i+PLAYLIST.length)%PLAYLIST.length;const tr=PLAYLIST[spI];AUD.src=tr.src;$("#spMq").textContent=tr.t+" · "+tr.a+"       "+tr.t+" · "+tr.a;$("#spSeek").value=0;$("#spSeek").style.setProperty("--p","0%")}
+function spLoad(i){spI=(i+PLAYLIST.length)%PLAYLIST.length;const tr=PLAYLIST[spI];AUD.src=tr.src;$("#spMq").textContent=tr.t+" · "+tr.a+"       "+tr.t+" · "+tr.a;$("#spSeek").value=0}
 function spPlay(){AUD.play().then(()=>$("#sp").removeAttribute("data-paused")).catch(()=>{$("#sp").setAttribute("data-paused","");toast(t("spErr"))})}
 function spLabels(){const on=$("#sp").hasAttribute("data-on");$("#spBtn").setAttribute("aria-label",on?t("spOff"):t("spOn"));$("#spBtn").title=on?t("spOff"):t("spOn");
   $("#sp").setAttribute("aria-label",t("spTitle"));$("#spPrev").setAttribute("aria-label",t("spPrev"));$("#spNext").setAttribute("aria-label",t("spNext"));$("#spSeek").setAttribute("aria-label",t("spSeekL"));$("#spMute").setAttribute("aria-label",t("spOff"));$("#spMute").title=t("spOff");
@@ -784,7 +783,7 @@ function spSet(on){const S=$("#sp");$("#spBar").hidden=!on;$("#spBtn").setAttrib
   if(on){S.setAttribute("data-on","");if(!AUD.src)spLoad(0);spPlay()}else{AUD.pause();S.removeAttribute("data-on")}spLabels()}
 function spToggle(){spSet(!$("#sp").hasAttribute("data-on"))}
 AUD.addEventListener("ended",()=>{spLoad(spI+1);spPlay()});
-AUD.addEventListener("timeupdate",()=>{if(!spSeeking&&AUD.duration){const v=Math.round(AUD.currentTime/AUD.duration*1000);$("#spSeek").value=v;$("#spSeek").style.setProperty("--p",v/10+"%")}});
+AUD.addEventListener("timeupdate",()=>{if(!spSeeking&&AUD.duration){const v=Math.round(AUD.currentTime/AUD.duration*1000);$("#spSeek").value=v}});
 AUD.addEventListener("pause",()=>{$("#sp").setAttribute("data-paused","");spLabels()});AUD.addEventListener("play",()=>{$("#sp").removeAttribute("data-paused");spLabels()});
 async function render(){
   stopStage();
