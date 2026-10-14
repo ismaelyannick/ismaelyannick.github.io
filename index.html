@@ -255,11 +255,11 @@ button{font-family:inherit}
 .sp{position:fixed;left:16px;bottom:16px;z-index:70;display:grid;gap:10px;justify-items:start;max-width:calc(100vw - 32px)}
 .sp-btn{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 16px 8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--nav);color:var(--ink);font:600 14px var(--display);cursor:pointer;box-shadow:var(--shadow)}
 .sp-btn:hover{border-color:var(--ink)}.sp-btn:focus-visible,.sp-x:focus-visible{outline:3px solid var(--link);outline-offset:3px}
-.sp-eq{display:inline-flex;align-items:flex-end;gap:2px;width:18px;height:16px;padding:0 1px;background:var(--accent);border-radius:5px;box-sizing:content-box;padding:3px}
-.sp-eq i{display:block;width:3px;background:var(--accent-ink);border-radius:2px;height:40%}
-.sp[data-on] .sp-eq i{animation:eq 1s ease-in-out infinite}.sp[data-on] .sp-eq i:nth-child(2){animation-delay:-.4s}.sp[data-on] .sp-eq i:nth-child(3){animation-delay:-.7s}
-@keyframes eq{0%,100%{height:30%}50%{height:100%}}
-@media (prefers-reduced-motion:reduce){.sp[data-on] .sp-eq i{animation:none;height:70%}}
+.sp-vinyl{width:26px;height:26px;flex:none;border-radius:50%;box-shadow:0 0 0 1px var(--line)}
+.sp[data-on] .sp-vinyl{animation:spin 2.4s linear infinite}
+.sp-btn:hover .sp-vinyl{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sp[data-on] .sp-vinyl,.sp-btn:hover .sp-vinyl{animation:none}}
 .sp-panel{width:min(360px,calc(100vw - 32px));background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px;box-shadow:var(--shadow)}
 .sp-panel[hidden]{display:none}
 .sp-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:2px 4px 10px}.sp-head b{font:600 14.5px var(--display)}
@@ -427,7 +427,7 @@ button{font-family:inherit}
 <div class="toast" id="toast" hidden></div>
 <div class="sp" id="sp">
   <div class="sp-panel" id="spPanel" hidden><div class="sp-head"><b id="spTitle"></b><button class="sp-x" id="spClose" type="button" aria-label=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="sp-frame" id="spFrame"></div><p class="sp-note" id="spNote"></p></div>
-  <button class="sp-btn" id="spBtn" type="button" aria-expanded="false" aria-controls="spPanel"><span class="sp-eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="spLabel"></span></button>
+  <button class="sp-btn" id="spBtn" type="button" aria-expanded="false" aria-controls="spPanel"><svg class="sp-vinyl" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#0B0B0D"/><circle cx="16" cy="16" r="11.5" fill="none" stroke="#2A2B31" stroke-width=".8"/><circle cx="16" cy="16" r="9" fill="none" stroke="#2A2B31" stroke-width=".8"/><path d="M6 11a11 11 0 0 1 6-5" fill="none" stroke="#5D5F66" stroke-width="1.2" stroke-linecap="round"/><circle cx="16" cy="16" r="5.5" fill="#FBC436"/><circle cx="16" cy="16" r="1.3" fill="#0B0B0D"/></svg><span id="spLabel"></span></button>
 </div>
 
 <script>
