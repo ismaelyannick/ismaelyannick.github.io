@@ -755,7 +755,7 @@ function track(){if(!GOATCOUNTER)return;const path=location.pathname+(location.h
   if(!goatReady){goatReady=true;window.goatcounter={no_onload:true};const sc=document.createElement("script");sc.async=true;sc.src="https://gc.zgo.at/count.js";sc.dataset.goatcounter=`https://${GOATCOUNTER}.goatcounter.com/count`;sc.onload=()=>window.goatcounter.count({path});document.head.appendChild(sc);return}
   window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path})}
 /* ---------- lecteur Spotify (chargé seulement à l'ouverture) ---------- */
-const SPOTIFY_URL="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn"; // à remplacer par la playlist d'Ismaël
+const SPOTIFY_URL="https://open.spotify.com/playlist/37i9dQZF1E4FhRRLh0mmxG"; // playlist d'Ismaël
 function spEmbed(u){const m=String(u).match(/open\.spotify\.com\/(playlist|album|track|episode|show)\/([A-Za-z0-9]+)/);return m?`https://open.spotify.com/embed/${m[1]}/${m[2]}?utm_source=generator&theme=0`:""}
 function spLabels(){$("#spLabel").textContent=t("spBtn");$("#spTitle").textContent=t("spTitle");$("#spNote").textContent=t("spNote");$("#spClose").setAttribute("aria-label",t("spClose"))}
 function spToggle(open){const P=$("#spPanel"),B=$("#spBtn"),S=$("#sp");open=open??P.hidden;P.hidden=!open;B.setAttribute("aria-expanded",String(open));
