@@ -238,9 +238,9 @@ button{font-family:inherit}
 .rtag{display:inline-block;justify-self:start;background:var(--chip);color:var(--muted);font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:5px 8px}
 .rx-dt{color:var(--muted);font-size:13.5px}
 .rx-feat:hover h3,.rx-card:hover h3{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.rx-tabs{display:flex;flex-wrap:wrap;gap:6px 18px;margin:52px 0 26px}
-.rx-tabs button{background:none;border:0;padding:6px 0;color:var(--muted);font:500 15.5px var(--display);cursor:pointer;min-height:36px}
-.rx-tabs button[aria-pressed="true"]{color:var(--link)}.rx-tabs button:hover{color:var(--ink)}
+.rx-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:52px 0 28px}
+.rx-tabs .topic{min-height:38px}
+.rx-tabs .topic[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .rx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:48px 18px}
 .rx-card .rtag{align-self:flex-start}.rx-card{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--ink);min-width:0}.rx-card[hidden]{display:none}
 .rx-card .pc{position:relative;aspect-ratio:1/1;border-radius:6px;overflow:hidden;display:grid;place-items:center;padding:22px;background:var(--pc-bg)}
@@ -655,7 +655,7 @@ async function viewHome(){const eds=await allEds();setTagDF(eds);const L=eds[0];
   <a class="rx-feat" href="#e-${L.date}">${coverHTML(L.date,L.titre,null).replace('aria-hidden="true"','aria-hidden="true" data-k="feat"')}
    <div class="rx-ft"><h3>${esc(L.titre)}</h3>${arr(L.essentiel)[L.apercu?1:0]?`<p>${esc(arr(L.essentiel)[L.apercu?1:0])}</p>`:""}
    <div class="rx-meta">${ft?`<span class="rtag">${esc(ft)}</span>`:""}<span class="rx-dt">${esc(fmt(L.date))} · ${readMin(L)} ${esc(t("min"))}</span></div></div></a>`;
-  if(rest.length){h+=`${tabs.length>1?`<div class="rx-tabs" role="group" aria-label="${esc(t("rxFilter"))}"><button data-rxf="" aria-pressed="true">${esc(t("rxAll"))}</button>${tabs.map(x=>`<button data-rxf="${esc(x)}" aria-pressed="false">${esc(x)}</button>`).join("")}</div>`:""}
+  if(rest.length){h+=`${tabs.length>1?`<div class="rx-tabs" role="group" aria-label="${esc(t("rxFilter"))}"><button class="topic" data-rxf="" aria-pressed="true"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true">${TI.layers}</svg>${esc(t("rxAll"))}</button>${tabs.map(x=>`<button class="topic" data-rxf="${esc(x)}" aria-pressed="false">${tagIcon(x)}${esc(x)}</button>`).join("")}</div>`:""}
    <div class="rx-grid" id="rxGrid">${rest.map((e,i)=>rxCard(e,i>=6)).join("")}</div>${rest.length>6?`<div class="more"><button class="ghost-btn" id="rxMore">${esc(t("more"))}</button></div>`:""}`}
   h+=`</section>`;
   return h}
