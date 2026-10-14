@@ -2,7 +2,7 @@
 
 Veille quotidienne sur le design agentique, l'IA en product design et les design systems augmentés, par Nicky (Ismaël Yannick).
 
-Site statique publié sur GitHub Pages : https://ismaelyannick.github.io/
+Le site a déménagé sur https://veilledesign.github.io/ (dépôt veilledesign/veilledesign.github.io). Cette adresse redirige vers la nouvelle.
 
 Chaque soir, la veille ajoute une édition :
 
